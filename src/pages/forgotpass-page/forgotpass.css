@@ -58,7 +58,7 @@ form{
 }
 
 #forgotpass-inputfield{
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 h3 {
@@ -72,7 +72,7 @@ button{
     font-family: 'Poppins', sans-serif;
     background-color: #3398cc;
     border-style: none;
-    border-radius: 15px;
+    border-radius: 20px;
     margin-top: -10px;
 }
 

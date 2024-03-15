@@ -107,7 +107,7 @@ button:hover {
 
 #services-select{
     font-family: 'Poppins', sans-serif;
-    border-radius: 20px;
+    border-radius: 10px;
     height: 45px;
     padding: 2px;
    
@@ -132,7 +132,7 @@ button:hover {
 
 #custom-name{
     font-family: 'Poppins', sans-serif;
-    border-radius: 20px; 
+    border-radius: 10px; 
     font-size: 14px;
     margin: 0 !important;
     width: 99%;
@@ -147,14 +147,14 @@ button:hover {
 
 #appoint-date{
     font-family: 'Poppins', sans-serif;
-    border-radius: 20px; 
+    border-radius: 10px; 
     font-size: 14px;
     margin: 0 !important;
 }
 
 #appoint-time{
     font-family: 'Poppins', sans-serif;
-    border-radius: 20px; 
+    border-radius: 10px; 
     font-size: 14px;
     width: 100%;
     margin: 0 !important;
@@ -169,6 +169,10 @@ button:hover {
     display: flex;
     justify-content: flex-end;
     margin-top: 35px;
+}
+
+.deets-btn .custom-button {
+    width: 100px;
 }
 
 @media (max-width: 768px) {

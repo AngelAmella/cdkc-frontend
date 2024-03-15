@@ -107,7 +107,13 @@ const PharmModal = ({ item, onClose }) => {
             style={{ maxWidth: "100vw", maxHeight: "250px" }}
           />
         </div>
-
+        
+      <div className="pharm-modal-new">
+        <div className="button-container">
+        <button onClick={onClose} id="close-btn-pharm">
+            X
+        </button>
+      </div>
         <form id="modal-form-pharm" >
           <div className="pharmDetailsMed">
             <div className="qty-group">
@@ -192,12 +198,9 @@ const PharmModal = ({ item, onClose }) => {
           </button>
         </form>
       </div>
-
-      <div className="button-container">
-      <button onClick={onClose} id="close-btn-pharm">
-        X
-      </button>
       </div>
+
+     
     </>
   );
 };

@@ -128,11 +128,11 @@ main {
 }
 
 #searchbar-pharmacy{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #username-pharmacy {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .modalPharm {
@@ -183,6 +183,7 @@ main {
   border-radius: 50%;
   margin-top: 40%;
   cursor: pointer;
+  margin-left: 400px;
   /* background-color: #3398CC; */
 }
 
@@ -316,10 +317,18 @@ main {
 }
 
 #username-pharm{
-  border-radius: 20px;
+  border-radius: 10px;
   margin: -5px;
 }
+.pharm-modal-new{
+  display: flex;
+  flex-direction: column;
+  margin-top: -230px;
+}
 
+.button-container{
+  margin-top: -204px;
+}
 @media screen and (max-width: 1366px){
   .pharmacy-container-ptn{
     height:565px;

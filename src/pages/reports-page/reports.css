@@ -52,7 +52,7 @@
 .reports-input{
     width: 100px;
     height: 30px;
-    border-radius:20px;
+    border-radius: 10px;
     margin: -2px;
     font-size: small;
 }
@@ -76,7 +76,7 @@
 }
 
 #reports-select{
-    border-radius: 20px;
+    border-radius: 10px;
     width: 200px;
 }
 
@@ -157,7 +157,7 @@
 }
 
 #generate-pdf-btn {
-    width: 120px;
+    width: 90px;
     height: fit-content;
     padding: 8px;
     font-size: small;
@@ -225,7 +225,7 @@
     .reports-input{
         width: 100px;
         height: 30px;
-        border-radius:20px;
+        border-radius:10px;
         margin: -2px;
         font-size: small;
     }

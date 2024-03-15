@@ -60,6 +60,7 @@
   justify-content: center;
   margin-left: 500px;
   margin-top: -20px;
+  width: 100px;
 }
 
 /* css for patient info table 
@@ -161,53 +162,53 @@
 }
 
 #edit-first{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-mid{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-last{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-num{
-  border-radius: 20px;
+  border-radius: 10px;
   width: 50%;
 }
 
 #edit-birth{
-  border-radius: 20px;
+  border-radius: 10px;
   width: 50%;
 }
 
 #edit-house{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-street{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-brgy{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-city{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-prov{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-email{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 #edit-userName{
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .edit-numbirth-input{
@@ -237,6 +238,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 10px;
+  width: 100px;
 }
 
 #save-btn-myprofile {
@@ -244,6 +246,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 10px;
+  width: 100px;
 } 
 
 #phone-icon , #home-icon, #cake-icon, #email-icon, #name-icon{

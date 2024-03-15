@@ -34,7 +34,7 @@
 
 .input-supplies {
   width: 20vw;
-  border-radius: 20px;
+  border-radius: 10px;
   margin-bottom: 20px;
 }
 
@@ -114,7 +114,7 @@ thead {
 }
 
 .supplies-change {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .supplies-change.supplies-change-input {
@@ -140,7 +140,7 @@ thead {
   display:flex;
   margin-top: -10px;
   margin-left: 25px;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 1190px;
   background-color: #f3f3f3;
   z-index: 1;
@@ -185,7 +185,7 @@ thead {
 }
 
 #expire-date{
-  border-radius: 20px;
+  border-radius: 10px;
   width: 250px; 
 }
 
