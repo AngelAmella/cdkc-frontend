@@ -1,0 +1,363 @@
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0 auto;
+}
+
+.registerpage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#register-form {
+  background-color: whitesmoke;
+  height: 100vh;
+  width: 50vw;
+  margin: 0 auto;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#register-logo {
+  height: 100vh;
+  width: 50vw;
+  margin: 0 auto;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name-container {
+  display: flex;
+  width: 90%;
+  gap: 1rem;
+}
+
+.address-container {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin-right: 3px;
+  gap: 1rem;
+}
+
+.useremail-container {
+  width: 90%;
+  display: flex;
+  gap: 1rem;
+  margin-right: 5px;
+}
+
+input {
+  width: 100%;
+  margin-left: 5px;
+  height: 2.5rem;
+  font-size: medium;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+#register-reg {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+#sex {
+  margin-left: 5px;
+  margin-right: -5px;
+  width: 102%;
+  height: 45px;
+  border-radius: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.form1 {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 1rem;
+  width: 90%;
+}
+
+.form1 .react-datepicker-wrapper {
+  width: 101%;
+}
+
+.react-datepicker-popper {
+  margin-top: -5px;
+}
+
+.react-datepicker__navigation.react-datepicker__navigation--previous {
+  margin-top: 5px;
+}
+
+.react-datepicker__navigation.react-datepicker__navigation--next {
+  margin-top: 5px;
+}
+
+.form1 label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.form1 select {
+  width: 100%;
+  height: 2.5rem;
+  font-size: medium;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.terms {
+  margin-top: -40px;
+  margin-left: 35rem;
+  display: flex;
+}
+
+
+#date {
+  margin-right: -12px;
+  height: 40px;
+  width: 99%;
+  border-radius: 20px;
+}
+
+#sex {
+  width: 102%;
+  margin-left: 5px;
+}
+
+#pass {
+  width: 424px;
+  margin-left: 8px;
+  border-radius: 20px;
+}
+
+#confirmpass {
+  width: 424px;
+  margin-left: 5px;
+  border-radius: 20px;
+}
+
+.asterisk {
+  color: blue; 
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.asterisk-birthday {
+  color: blue; 
+  font-size: 14px; 
+  margin-left: 70px;
+  margin-top: -22px;
+}
+
+.asterisk-sex {
+  color: blue; 
+  font-size: 14px; 
+  margin-left: 35px;
+  margin-top: -22px;
+}
+
+.asterisk-contact {
+  color: blue; 
+  font-size: 14px; 
+  margin-left: 100px; 
+  margin-top: -22px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  width: 90%;
+}
+
+.password-container {
+  width: 91.5%;
+  display: flex;
+  gap: 0.6rem;
+  margin-right: -5px;
+}
+
+.password-input {
+  width: 420px;
+  flex: 1;
+  font-size: medium;
+  margin-right: 5px;
+}
+
+.password-input-container {
+  position: relative;
+  width: 400px;
+  flex: 1;
+  font-size: medium;
+  margin-right: 10px;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 490px;
+  top: 721px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.toggle-eye svg {
+  width: 20px;
+  height: 20px;
+  fill: #333;
+}
+
+.toggle-eye-confirm {
+  position: absolute;
+  right: 3px;
+  top: 71%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.toggle-eye svg,
+.toggle-eye-confirm svg {
+  width: 20px;
+  height: 20px;
+  fill: #333;
+}
+
+#firstName {
+  border-radius: 20px;
+}
+
+#middleName {
+  border-radius: 20px;
+}
+
+#lastName {
+  border-radius: 20px;
+}
+
+#num {
+  border-radius: 20px;
+}
+
+#house {
+  border-radius: 20px;
+}
+
+#street {
+  border-radius: 20px;
+}
+
+#barangay {
+  border-radius: 20px;
+}
+
+#municipality-city {
+  border-radius: 20px;
+}
+
+#province {
+  border-radius: 20px;
+}
+
+#email {
+  border-radius: 20px;
+}
+
+#username {
+  border-radius: 20px;
+}
+
+@media screen and (width: 1366px){
+  *{
+    font-size: 13px;
+  }
+  #firstName, #middleName, #lastName, #date, #sex, #num,
+  #house, #street, #barangay, #municipality-city, #province,
+  #email, #username, #pass, #confirmpass{
+    font-size: 12px;
+    height: 30px;
+  }
+  #form-form-reg{
+    width: 80%;
+    
+  }
+
+  .password-container{
+    gap: 0;
+  }
+  #pass, #confirmpass{
+    width: 235px;
+  }
+  #terms-p{
+   font-size: 11px;
+   display: block;
+  }
+  .terms{
+   
+    margin-left: 26rem;
+  }
+  #signup{
+    font-size: 13px;
+  }
+  .toggle-eye{
+    top:527px;
+    right: 351px;
+  }
+  .toggle-eye-confirm{
+    top: 38px;
+    right: 9px;
+  }
+}

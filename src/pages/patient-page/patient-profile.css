@@ -1,0 +1,581 @@
+*{
+    font-family: 'Poppins', sans-serif;
+ }
+
+.ptnheader{
+    width: 99vw;
+    height: auto;    
+}
+
+.profile-header-ptn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-menu-ptn{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    align-items: center;
+}
+
+#menu-img-ptn{
+    height: 5vh;
+    width: 5vh;
+    margin: 5px;
+    padding: 10px;
+}
+
+#drop-label-ptn{
+    display: flex;
+    flex-direction: column;
+}
+
+#drop-label-ptn p{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    margin: 5px;
+}
+
+.drop-links-ptn ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin: 0;
+    padding: 0;
+}
+
+.drop-links-ptn a{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: margin 0.3s ease-in-out;
+}
+
+.drop-links-ptn a:hover{
+    margin: 5px;
+}
+
+.sidebar-icon {
+    font-size: 20px;
+}
+
+#logo-box-sidebar-ptn h2{
+    font-size: 15px;
+}
+
+#logo-box-sidebar-ptn img{
+    height: 5vh;
+    width: 5vh;
+    margin: 5px;
+    padding: 10px;
+}
+
+#logo-box-sidebar-ptn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: black;
+   
+}
+
+#history-link{
+    font-size: 14px;
+}
+
+.menu-trigger-ptn img {
+    top: 5px;
+    right: 20px;
+    height: 55px;
+    width: 55px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.dropdown-menu-ptn {
+    position: absolute;
+    top: 74px;
+    right: 23px;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    width: 180px;
+    box-shadow: 5px 5px 8px #888888;
+    z-index: 2;
+}
+
+.dropdown-menu-ptn::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 15px; 
+    transform: rotate(45deg); 
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+}
+
+.dropdown-menu-ptn.active{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: var(--speed) ease;
+}
+
+.dropdown-menu-ptn.inactive{
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: var(--speed) ease;
+}
+
+h3 {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 0;
+    font-weight: 500;
+    color: var(--primary-text-color);
+    line-height: 1.2rem;
+}
+
+h3 span {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+    font-weight: 400;
+}
+
+.dropdown-menu-ptn ul li {
+    list-style: none;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-menu-ptn ul li:hover {
+    color: #114061;
+    cursor: pointer;
+}
+
+.dropdown-menu-ptn ul li:hover a{
+    color: #114061;
+    cursor: pointer;
+}
+
+.dropdown-menu-ptn ul li:hover img{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.dropdownItem-ptn {
+    display: flex;
+    align-items: start;
+    margin: 10px auto;
+}
+
+.dropdownItem-ptn img {
+    max-width: 20px;
+    margin-right: 10px;
+    opacity: 0.5;
+    transition: var(--speed);
+}
+
+
+.dash-patient{
+    background-color: white;
+    width: 93vw;
+    height: 89vh;
+    border-radius: 20px;
+    margin-left: 20px;
+}
+
+.dash-patient p{
+    color: lightslategrey;
+    font-size: 20px;
+    display: flex;
+    margin-left: 50px;
+}
+
+.dashpatient-row{
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding:50px;
+}
+
+.userBox{
+    background-color: white;
+}
+
+/* Additional styles for hiding the sidebar initially */
+.sidenav {
+    visibility: visible;
+    position: absolute;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidenav.hidden {
+    transform: translateX(-100%);
+    visibility: hidden;
+}
+  
+/* Ensure sidebar-icon is visible even when the sidebar is hidden */
+.sidenav.hidden .sidebar-icon {
+    visibility: visible;
+    margin-top: 50px;
+}
+
+/* Add these styles for the hamburger button */
+.hamburger-button {
+    display: flex;
+    justify-content: center;
+    margin: 10px 5px 0px 20px; /* Four values: top, right, bottom, left */
+    font-size: 20px;
+    padding: 5px;
+}
+.hamburger-button :hover{
+    cursor: pointer;
+}
+
+.sidenav ul {
+    margin-top: 50px;
+}
+  
+.table-appointment tbody  .accepted {
+    background-color: #96d896; 
+}
+  
+.table-appointment tbody  .denied {
+    background-color: #e5a0a0;
+}
+
+.table-appointment tbody  .cancelled {
+    background-color: #e6dd82; 
+}
+
+.table-appointment{
+    display: flex;
+    justify-content: center;
+    table-layout: fixed;
+}
+
+.purchase-wrapper {
+    margin-top: -10px;
+    margin-left: 50px;
+    background: rgb(243, 243, 243);
+    width: 66%;
+    height: 180px;
+    padding: 20px;
+    border-radius: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.table-order-stat {
+    border-collapse: collapse;
+    width: 90%;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 50px;
+    margin-top: -10px;
+}
+
+.table-order-stat th,
+.table-order-stat td {
+    padding: 10px;
+    text-align: center; /* Align text to the left within cells */
+}
+
+/* Adjust alignment for specific columns */
+.table-order-stat td:nth-child(3), /* Quantity column */
+.table-order-stat td:nth-child(5), /* Total Price column */
+#received-btn {
+    text-align: center; /* Align center for Quantity, Total Price, and Status button */
+}
+
+#totalprice-stats {
+    color: green;
+}
+
+#received-btn {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 70px;
+    margin-top: 10px;
+}
+
+#received-btn.disabled-button {
+    cursor: not-allowed;
+    background-color: #dcdcdc; 
+    color: #a9a9a9; 
+}
+
+#received-btn.disabled-button:hover {
+    filter: drop-shadow(0 0 0.2em #000);
+}
+
+/* Add spacing between table rows */
+.table-order-stat tr {
+    margin-bottom: 10px;
+}
+
+
+#order-stat {
+    color: black;
+    font-weight: 600;
+    padding: 10px;
+    margin: 0;
+    display: flex;
+}
+
+.clock-wrapper-ptn {
+    margin-top: -220px;
+    margin-left: 1325px;
+    background: rgb(243, 243, 243);
+    width: 21%;
+    height: 180px;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+}
+  
+.round-clock-ptn {
+    position: absolute;
+    top: 55%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border:4px solid #333;
+    border-radius: 50%;
+}
+  
+.hand {
+    position: absolute;
+    transform-origin: 50% 100%;
+    background: #333;
+    left: 50%;
+    bottom: 50%;
+}
+  
+.hour-hand-ptn {
+    width: 5px;
+    height: 30px;
+    transform: translateX(-50%);
+}
+  
+.minute-hand-ptn {
+    width: 3px;
+    height: 40px;
+    transform: translateX(-50%);
+}
+  
+.second-hand {
+    width: 2px;
+    height: 45px;
+    background: red;
+    transform: translateX(-50%);
+}
+  
+.clock-center-ptn {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  
+#clock-p-ptn {
+    color: black;
+    font-weight: 600;
+    padding: 20px;
+    margin: 0;
+    margin-top: -10px;
+}
+
+#time-p-ptn {
+    padding: 20px;
+    margin: 0;
+    margin-top: 80px;
+    margin-left: 128px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.sort-dropdown-upcoming {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: -10px;
+    margin-left: 30px;
+}
+
+.sort-dropdown-purchase {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+
+/* .table-appointment th,
+.table-appointment tbody tr {
+  pointer-events: none; 
+} */
+
+ /* #cancel-btn-ptn {
+    margin-top: -4px;
+    margin-bottom: -5px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+} */
+
+.table-ptn tbody tr:hover {
+    background-color: #cac6c6; /* Change this to the desired hover color */
+  }
+
+.disabled-button-ptn {
+    background-color: #afafaf; 
+    color: #a9a9a9; 
+    cursor: not-allowed; 
+} 
+
+#cancel-btn-ptn :hover{
+    cursor: pointer;
+}
+
+.cancelled-btn {
+    cursor: not-allowed;
+    background-color: #dcdcdc; 
+    color: #a9a9a9; 
+}
+
+.cancel-btn {
+    margin-top: -4px;
+    margin-bottom: -5px;
+}
+  
+.cancel-btn:disabled {
+    cursor: not-allowed;
+    background-color: #dcdcdc; 
+    color: #a9a9a9; 
+}
+
+.cancel-btn:disabled:hover {
+    filter: drop-shadow(0 0 0.2em #000);
+}
+
+@media screen and (max-width: 1366px){
+    .ptnheader{
+        width: 99vw;
+    }
+    .logo-sidebar-ptn{
+        margin-left: 0px;
+    }
+    .dash-patient{
+       height:565px;
+       width: 90vw;
+    }
+    .dashpatient-row{
+        padding: 20px;
+        margin-top: 40px;
+        align-items: self-start;
+    }
+    .dash-patient p{
+        font-size: 15px;
+        margin-left: 25px;
+    }
+    .upcoming-wrapper{
+       height: 300px !important;
+    }
+    #label-sort{
+        font-size: 14px;
+    }
+    #sort{
+        height: 20px;
+        border-radius: 20px;
+    }
+    .sort-dropdown-upcoming{
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+    }
+    .table-appointment{
+        font-size: 15px;
+    }
+    .purchase-wrapper{
+        margin-left: 20px;
+        padding-left: 20px;
+        width: 67.5%;
+        height: 118px;
+    }
+    .clock-wrapper-ptn{
+        margin-left: 910px;
+        height:118px;
+        margin-top:-158px;
+        width: 21.3%;
+    }
+    #clock-p-ptn{
+        margin-bottom: 120px;
+        padding: 0;
+        font-size: 0;
+    }
+    #time-p-ptn{
+        margin-top: -30px;
+        padding: 0;
+        font-weight: 300;
+        margin-top: 0;
+        margin-left: 0;
+        font-size: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* margin-left: -5px; */
+    }
+
+    .round-clock-ptn {
+        margin-top: -15px;
+    }
+    .table-order-stat{
+        font-size: 15px;
+    }
+    #order-stat{
+        padding: 0;
+    }
+    .sidenav ul{
+        margin: 50px 0px 0px 20px !important; /* Four values: top, right, bottom, left */
+        gap: 20px;
+    }
+    tr{
+        font-size: 12px;
+    }
+    .cancel-btn{
+        font-size: 12px;
+        height: 30px;
+    }
+    #received-btn{
+        font-size: 12px;
+        margin: 0;
+        margin-left: 10px;
+        height: 30px;
+    }
+}

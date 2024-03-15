@@ -1,0 +1,99 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+#root{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 0 auto;
+}
+
+.forgotpage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#forgotpass-form{
+    background-color: whitesmoke;
+    height: 100vh;
+    width: 50vw;
+    margin: 0 auto;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#forgotpass-logo{
+    height: 100vh;
+    width: 50vw;
+    margin: 0 auto;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#forgotpass-inputfield{
+    border-radius: 20px;
+}
+
+h3 {
+    font-family: 'Poppins', sans-serif;
+}
+
+button{
+    height: 2.5rem;
+    width: 5rem;
+    font-size: medium;
+    font-family: 'Poppins', sans-serif;
+    background-color: #3398cc;
+    border-style: none;
+    border-radius: 15px;
+    margin-top: -10px;
+}
+
+button:hover {
+    filter: drop-shadow(0 0 0.2em #3398cc);
+}
+
+#forgot-send-btn.custom-button {
+    width: 100px;
+}
+
+
+.forgotpass-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+@media screen and (max-width:1366px) {
+    #forgot-send-btn{
+        width: 100px;
+    }
+}

@@ -1,0 +1,307 @@
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
+.supplies-container {
+  background-color: white;
+   width: 93vw;
+   height: 89vh;
+   border-radius: 20px;
+   margin-left: 20px;
+}
+  
+.create-stocks {
+  height: 100%;
+  margin-top: 210px;
+  margin-left: 50px;
+  margin-bottom: 10px;
+  display: flex;
+  background-color: rgb(243, 243, 243);
+  width: fit-content;
+  padding: 20px;
+  border-radius: 20px;
+  gap: 1.5rem;
+}
+
+#img-upload{
+  border: none;
+  border-radius: 0;
+}
+
+#img-upload.input-supplies {
+  margin-top: 20px;
+}
+
+.input-supplies {
+  width: 20vw;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.supplies-row {
+  display: flex;
+}
+
+.supplies-form, .supplies-view {
+  flex: 1;
+  padding: 10px;
+}
+
+  
+.table {
+  margin-top: 10px;
+  border-collapse: collapse;
+  margin: 20px; 
+  background-color: #f2f2f2;
+  border-radius: 20px; 
+  overflow: hidden; 
+  width: calc(100% - 2em); 
+  table-layout: fixed;
+}
+
+#inventory-header {
+  font-size: 25px;
+}
+  
+.table th,
+.table td {
+  padding: 10px;
+}
+  
+  
+.table tr:hover {
+  background-color: #ddd;
+}
+  
+tbody {
+  display: table-row-group;
+  margin: 5px;
+}
+  
+thead {
+  display: table-row-group;
+}
+  
+.supplies-table-content {
+  margin-right: 700px;
+}
+
+.table th:nth-child(1),
+.table td:nth-child(1),
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  padding: 5px;
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3), /* Availability column */
+.table th:nth-child(4),
+.table td:nth-child(4), /* Price column */
+.table th:nth-child(5),
+.table td:nth-child(5) { /* Image column */
+  text-align: center; /* Center the content */
+  padding: 10px; /* Adjust padding as needed */
+}
+
+.supplies-table-container {
+  margin-top: 30px;
+  margin-left: 5px;
+  /* width: 250%; */
+  width: 208%;
+  max-height: 630px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.supplies-change {
+  border-radius: 20px;
+}
+
+.supplies-change.supplies-change-input {
+  width: 120px;
+}
+
+#supplies-header {
+  display: flex;
+  justify-content: center;
+  margin-left: 200px;
+}
+
+.searchbar-header{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -10px;
+  width: 600px;
+  z-index: 1;
+  margin-left: 170px;
+}
+  
+#searchbar-supplies{
+  display:flex;
+  margin-top: -10px;
+  margin-left: 25px;
+  border-radius: 20px;
+  width: 1190px;
+  background-color: #f3f3f3;
+  z-index: 1;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 5px; /* Adjust the gap as needed */
+}
+
+#supplies-edit-btn {
+  margin-top: 10px;
+  padding: 8px 20px;
+}
+
+#supplies-save-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+}
+
+#supplies-cancel-btn {
+  margin-top: 10px;
+}
+
+#supplies-delete-btn {
+  background-color: #FF0000;
+  margin-top: 10px;
+}
+
+#supplies-delete-btn:hover {
+  filter: drop-shadow(0 0 0.2em #FF0000);
+}
+
+.lowStock{
+  background-color: rgb(255, 151, 151);
+  font-weight: 600;
+}
+
+.expiredStock {
+  background-color: rgb(246, 217, 102, 0.5); /* Adjust background color and opacity for expired stocks */
+  font-weight: 600;
+}
+
+#expire-date{
+  border-radius: 20px;
+  width: 250px; 
+}
+
+.expiration-container{
+ display: flex;
+ flex-direction: row;
+ justify-content: baseline;
+ align-items: baseline;
+ gap: 0.3rem;
+ padding: 3px;
+}
+
+#label-expire{
+  font-weight: 500;
+}
+
+@media screen and (max-width:1366px) {
+  .supplies-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .create-stocks{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    /* width: 85vw; */
+    padding: 20px;
+    margin: 20px 0 0 0;
+  }
+
+  .supplies-table-content {
+    margin-left: 50px;
+    width: 580px;
+  }
+
+  #img-upload.input-supplies {
+    /* margin-left: -15px; */
+    font-size: 15px;
+  }
+ 
+  .input-supplies{
+    height: 30px;
+    width: 100px;
+    margin: 0;
+    font-size: 12px;
+  }
+  .expiration-container {
+    /* margin-left: -10px; */
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  #label-expire{
+    font-size: 12px;
+   
+  }
+  #expire-date{
+    width: 100px; 
+    font-size: 12px;
+    height: 30px;
+  }
+  #inventory-header{
+    margin-left: -180px;
+    font-size: 14px;
+  }
+  #supplies-header{
+    font-size: 20px;
+    color: lightslategray;
+    margin: 0;
+    font-weight: 400;
+    margin-right: 140px;
+  }
+  .searchbar-header{
+    width: fit-content;
+  }
+  #searchbar-supplies{
+    /* margin-left: 350px; */
+    width: 400px;
+    font-size: 12px;
+    height: 30px;
+  }
+  .supplies-table-container{
+   justify-content: center;
+   align-items: center;
+   height: 320px;
+  }
+  .top-supplies{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 20px;
+
+  }
+  #supplies-edit-btn, #supplies-delete-btn{
+    font-size: 12px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* `````````````NEWCODE */
+  .form-create-stocks{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-left: 200px;
+  }
+}
