@@ -4,10 +4,11 @@
 
 .supplies-container {
   background-color: white;
-   width: 93vw;
-   height: 89vh;
+  width: 86vw; /*changed*/
+  height: 565px;
+  margin-left: 160px;
    border-radius: 20px;
-   margin-left: 20px;
+   
 }
   
 .create-stocks {
@@ -304,4 +305,6 @@ thead {
     align-items: center;
     margin-left: 200px;
   }
+
+  
 }

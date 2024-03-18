@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 
 export default function MedicalRecordModal({ patientId, onClose }) {
   const [data, setData] = useState([]);
+  const [editingRecords, setEditingRecords] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const [editingRecord, setEditingRecord] = useState(null);
+  const [unsavedChanges, setUnsavedChanges] = useState({});
 
   const id = patientId;
 
@@ -20,38 +21,49 @@ export default function MedicalRecordModal({ patientId, onClose }) {
       });
   }, [id]);
 
-  const handleEditClick = (record) => {
+  const handleEditClick = (recordId) => {
     setIsEditing(true);
-    setEditingRecord(record);
+    setEditingRecords((prev) => ({ ...prev, [recordId]: true }));
   };
 
-  const handleSaveClick = () => {
-    const { _id, ...updatedData } = editingRecord;
-    axios
-      .put(`http://localhost:5000/api/records/medical-history/${_id}`, updatedData)
-      .then((result) => {
-        setData((prevData) => {
-          const updatedData = prevData.map((record) =>
-            record._id === _id ? { ...record, ...editingRecord } : record
-          );
-          return updatedData;
+  const handleSaveClick = (recordId) => {
+    const editingRecordIndex = data.findIndex((record) => record._id === recordId);
+    const editedRecord = { ...data[editingRecordIndex], ...unsavedChanges[recordId] };
+    
+    const confirmation = window.confirm("Are you sure you want to save your changes?");
+    if (confirmation) {
+      axios
+        .put(`http://localhost:5000/api/records/medical-history/${recordId}`, editedRecord)
+        .then((result) => {
+          const newData = [...data];
+          newData[editingRecordIndex] = editedRecord;
+          setData(newData);
+          setIsEditing(false);
+          setEditingRecords((prev) => ({ ...prev, [recordId]: false }));
+          setUnsavedChanges((prev) => ({ ...prev, [recordId]: undefined }));
+          alert("Changes saved successfully.");
+        })
+        .catch((err) => {
+          console.error(err);
         });
-        setIsEditing(false);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    }
   };
+  
+  
 
-  const handleCancelClick = () => {
+  const handleCancelClick = (recordId) => {
+    // Reset the editing state
     setIsEditing(false);
+    setEditingRecords((prev) => ({ ...prev, [recordId]: false }));
+    // Discard unsaved changes
+    setUnsavedChanges((prev) => ({ ...prev, [recordId]: undefined }));
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e, recordId) => {
     const { name, value } = e.target;
-    setEditingRecord((prevEditingRecord) => ({
-      ...prevEditingRecord,
-      [name]: value,
+    setUnsavedChanges((prev) => ({
+      ...prev,
+      [recordId]: { ...prev[recordId], [name]: value }
     }));
   };
 
@@ -73,82 +85,91 @@ export default function MedicalRecordModal({ patientId, onClose }) {
             {data.map((history) => (
               <tr key={history._id}>
                 <td>
-                  {isEditing ? (
+                  {editingRecords[history._id] ? (
                     <input
                       type="text"
                       name="allergies"
                       className="modal-change"
-                      value={editingRecord.allergies}
-                      onChange={handleInputChange}
+                      value={unsavedChanges[history._id]?.allergies || history.allergies}
+                      onChange={(e) => handleInputChange(e, history._id)}
                     />
                   ) : (
                     history.allergies
                   )}
                 </td>
                 <td>
-                  {isEditing ? (
+                  {editingRecords[history._id] ? (
                     <input
                       type="text"
                       name="diagnosis"
                       className="modal-change"
-                      value={editingRecord.diagnosis}
-                      onChange={handleInputChange}
+                      value={unsavedChanges[history._id]?.diagnosis || history.diagnosis}
+                      onChange={(e) => handleInputChange(e, history._id)}
                     />
                   ) : (
                     history.diagnosis
                   )}
                 </td>
                 <td>
-                  {isEditing ? (
+                  {editingRecords[history._id] ? (
                     <input
                       type="text"
                       name="bloodPressure"
                       className="modal-change"
-                      value={editingRecord.bloodPressure}
-                      onChange={handleInputChange}
+                      value={unsavedChanges[history._id]?.bloodPressure || history.bloodPressure}
+                      onChange={(e) => handleInputChange(e, history._id)}
                     />
                   ) : (
                     history.bloodPressure
                   )}
                 </td>
                 <td>
-                  {isEditing ? (
+                  {editingRecords[history._id] ? (
                     <input
                       type="text"
                       name="temperature"
                       className="modal-change"
-                      value={editingRecord.temperature}
-                      onChange={handleInputChange}
+                      value={unsavedChanges[history._id]?.temperature || history.temperature}
+                      onChange={(e) => handleInputChange(e, history._id)}
                     />
                   ) : (
                     history.temperature
                   )}
                 </td>
                 <td>
-                  {isEditing ? (
+                  {editingRecords[history._id] ? (
                     <input
                       type="text"
                       name="surgeries"
                       className="modal-change"
-                      value={editingRecord.surgeries}
-                      onChange={handleInputChange}
+                      value={unsavedChanges[history._id]?.surgeries || history.surgeries}
+                      onChange={(e) => handleInputChange(e, history._id)}
                     />
                   ) : (
                     history.surgeries
                   )}
                 </td>
                 <td>
-                  {isEditing ? (
+                  {editingRecords[history._id] ? (
                     <>
-                      <button className="savebtn-modal" onClick={handleSaveClick}>
+                      <button
+                        className="savebtn-modal"
+                        onClick={() => handleSaveClick(history._id)}
+                      >
                         Save
                       </button>
-                      <button className="cancelbtn-modal" onClick={handleCancelClick}>
+                      <button
+                        className="cancelbtn-modal"
+                        onClick={() => handleCancelClick(history._id)}
+                      >
                         Cancel
                       </button>
                     </>
                   ) : (
-                    <button className="editbtn-modal" onClick={() => handleEditClick(history)}>
+                    <button
+                      className="editbtn-modal"
+                      onClick={() => handleEditClick(history._id)}
+                    >
                       Edit
                     </button>
                   )}

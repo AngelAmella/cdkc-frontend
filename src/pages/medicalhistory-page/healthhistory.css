@@ -60,8 +60,9 @@ thead {
     height: 30px;
   }
   .medicalrecord-container{
-    width: 93vw;
-    height:565px;
+    width: 86vw; /*changed*/
+    height: 565px;
+    margin-left: 160px;
   }
 
 }

@@ -258,5 +258,9 @@
   .myprofile-details p {
     margin-bottom: 20px;
   }
-
+  #edit-first, #edit-mid, #edit-last, #edit-birth, #edit-num, #edit-house, #edit-street, #edit-brgy, #edit-city, #edit-prov, #edit-email, #edit-userName, 
+  #cancel-btn-myprofile, #save-btn-myprofile, #edit-btn{
+    font-size: 12px;
+    height: 30px;
+  }
 }

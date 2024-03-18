@@ -215,7 +215,7 @@ h3 span {
 }
 
 /* Additional styles for hiding the sidebar initially */
-.sidenav {
+.sidenav-ptn {
     visibility: visible;
     position: absolute;
     transition: transform 0.3s ease-in-out;
@@ -244,7 +244,7 @@ h3 span {
     cursor: pointer;
 }
 
-.sidenav ul {
+.sidenav-ptn ul {
     margin-top: 50px;
 }
   
@@ -484,6 +484,33 @@ h3 span {
     filter: drop-shadow(0 0 0.2em #000);
 }
 
+/* sidenav new added  */
+.sidenav-ptn {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #cfd8db; /* Adjust as needed */
+    width: 250px; /* Adjust sidebar width */
+    transition: width 0.5s; /* Add transition for smooth animation */
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+.sidenav-ptn a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    font-size: 15px;
+}
+
+.sidenav-ptn ul{
+    margin: 150px 10px 10px 10px;  /* Four values: top, right, bottom, left */
+    padding: 10px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
 @media screen and (max-width: 1366px){
     .ptnheader{
         width: 99vw;
@@ -492,17 +519,17 @@ h3 span {
         margin-left: 0px;
     }
     .dash-patient{
-       height:565px;
-       width: 90vw;
+        width: 86vw; /*changed*/
+        height: 565px;
+        margin-left: 160px;
     }
     .dashpatient-row{
-        padding: 20px;
-        margin-top: 40px;
+        padding: 50px; /*changed*/
         align-items: self-start;
     }
     .dash-patient p{
         font-size: 15px;
-        margin-left: 25px;
+        margin-left: 50px; /*changed*/
     }
     .upcoming-wrapper{
        height: 300px !important;
@@ -523,16 +550,17 @@ h3 span {
         font-size: 15px;
     }
     .purchase-wrapper{
-        margin-left: 20px;
+        margin-top: -40px;/*changed*/
+        margin-left: 48px;/*changed*/
         padding-left: 20px;
         width: 67.5%;
         height: 118px;
     }
     .clock-wrapper-ptn{
-        margin-left: 910px;
+        margin-left: 890px; /*CHANGED*/
         height:118px;
-        margin-top:-158px;
-        width: 21.3%;
+        margin-top:-160px; /*changed*/
+        width: 16.8%; /*CHANGED*/
     }
     #clock-p-ptn{
         margin-bottom: 120px;
@@ -561,9 +589,9 @@ h3 span {
     #order-stat{
         padding: 0;
     }
-    .sidenav ul{
+    .sidenav-ptn ul{
         margin: 50px 0px 0px 20px !important; /* Four values: top, right, bottom, left */
-        gap: 20px;
+        /* gap: 20px; */
     }
     tr{
         font-size: 12px;
@@ -577,5 +605,13 @@ h3 span {
         margin: 0;
         margin-left: 10px;
         height: 30px;
+    }
+    /* newww */
+    .sidenav-ptn{ /*NEW*/
+        background-color: #e6eef1;
+        /* background-color: #264e75; */
+        margin-top: 55px;
+        width: 170px;
+
     }
 }

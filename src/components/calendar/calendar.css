@@ -122,6 +122,7 @@ header .icons span:last-child{
 @media screen and  (max-width: 1366px){
     .wrapper{
         height: 300px;
+        width: 18%; /*CHANGED*/
     }
     .wrapper header{
         display: flex;
@@ -147,7 +148,8 @@ header .icons span:last-child{
         margin-top: 15px;
     }
     .calendar .days li::before{
-        width: 30px;
-        height: 30px;
+        /*CHANGED*/
+        width: 25px;
+        height: 25px;
     }
 }

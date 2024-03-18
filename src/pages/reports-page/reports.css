@@ -37,7 +37,7 @@
     width: fit-content;
 } */
 
-#reports-inputfield {
+#firstParams {
     width: 300px;
 }
 
@@ -208,11 +208,16 @@
     width: 100vw;
   } */
 
+  .rep-input-error{
+    border: 1px solid red;
+  }
+
 
   @media screen and (max-width: 1366px){
     .reports-container{
-        width: 93vw;
+        width: 86vw; /*changed*/
         height: 565px;
+        margin-left: 160px;
         overflow-y:auto;
     }
     .reports-form-container{
@@ -272,6 +277,15 @@
     }
     .medhistory p {
         width: 50px;
+        font-size: 12px;
+    }
+    /* NEW CODE 3-17-24 */
+    #firstParams-div{
+        font-size: 12px;
+        display: flex;
+    }
+    #rep-errors-p{
+        color: red;
         font-size: 12px;
     }
 }

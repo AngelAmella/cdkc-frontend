@@ -192,8 +192,9 @@ h6 {
 
 @media screen and (max-width:1366px) {
   .announcement-container-amn{
-    width: 93vw;
-    height: 565px;
+    width: 86vw; /*changed*/
+        height: 565px;
+        margin-left: 160px;
  }
  .grid-container {
   width: 730px;

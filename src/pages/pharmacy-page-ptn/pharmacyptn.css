@@ -331,8 +331,9 @@ main {
 }
 @media screen and (max-width: 1366px){
   .pharmacy-container-ptn{
-    height:565px;
-    width: 93vw;
+    width: 86vw; /*changed*/
+    height: 565px;
+    margin-left: 160px;
   }
   #pharmacy-header{
     font-size: 25px;

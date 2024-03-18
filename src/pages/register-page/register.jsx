@@ -1,133 +1,88 @@
 import React, { useState } from 'react';
-import './register.css';
-import Head2 from '../../components/headers/header';
+import './register.css'
 import '../../components/headers/header.css';
-import InputField from '../../components/textfield/textfield';
-import Button from '../../components/buttons/button';
 import DiaLogo from '../../components/logo/logo';
 import ClientLogo from '../../assets/ccmdkc-logo.png';
-import { Link, useNavigate } from 'react-router-dom';
 import Terms from '../../components/modals/terms';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { RiEyeFill } from 'react-icons/ri';
-import { AiFillEyeInvisible } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import { RiEyeFill, RiEyeCloseFill } from 'react-icons/ri';
 import axios from 'axios';
+import {useFormik} from 'formik'
+import { registerSchema } from '../../components/schema/schemaindex';
+
+
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [password, setPassword] = useState('');
-  const [confirmpassword, setConfirmPassword] = useState('');
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const [openModal, setOpenModal] = useState(false);
-
-  const [LastName, setLastName] = useState('');
-  const [FirstName, setFirstName] = useState('');
-  const [MiddleName, setMiddleName] = useState('');
-
-  const [birthday, setBirthday] = useState(new Date());
-  const [sex, setSex] = useState('');
-  const [contactNum, setContactNum] = useState('');
-
-  const [houseNum, sethouseNum] = useState('');
-  const [street, setStreet] = useState('');
-  const [brgy, setBrgy] = useState('');
-  const [city, setCity] = useState('');
-  const [prov, setProv] = useState('');
-
   
-  const [email, setEmail] = useState('');
-  const [UserName, setUserName] = useState('');
-
-
-  const handleBirthdayChange = (date) => {
-    setBirthday(date);
-  };
-
-  const togglePasswordVisibility = (field) => {
-    if (field === 'password') {
-      setShowPassword(!showPassword);
-    } else if (field === 'confirmPassword') {
-      setShowConfirmPassword(!showConfirmPassword);
-    }
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
   const handleTermsLinkClick = () => {
     setOpenModal(true);
   };
-
   const handleCloseModal = () => {
     setOpenModal(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  
-    if (password !== confirmpassword) {
-      alert("An error occurred while registering the user. The password and confirm password do not match."); // Specific error message for password mismatch
-    } else {
-      axios
-        .post('http://localhost:5000/api/user', {
-          FirstName,
-          MiddleName,
-          LastName,
-          birthday,
-          houseNum,
-          street,
-          brgy,
-          city,
-          prov,
-          sex,
-          UserName,
-          contactNum,
-          email,
-          password,
-          confirmpassword,
-        })
-        .then((userResponse) => {
-          console.log('User Response: ', userResponse);
-          const { token, userId, isUser, name } = userResponse.data;
-  
-          // Store user token in localStorage
-          if (userId) {
-            localStorage.setItem('userToken', token);
-            localStorage.setItem('userId', userId); // Store user ID in localStorage
-            localStorage.setItem('isUser', isUser); // Store user role in localStorage
-            localStorage.setItem('userName', name);
-  
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  
-            // Redirect to user page with the user ID parameter
-            window.location.href = `/patient/myprofile/${userId}`;
-          } else {
-            console.error('User ID not found in the response');
-          }
-        })
-        .catch((userError) => {
-          console.error('User Registration Error: ', userError);
-          if (userError.response && userError.response.status === 400) {
-            const errorMessage = userError.response.data.error; // Extracting error message from the response
-            if (errorMessage === "Email already in use") {
-              alert("An error occurred while registering the user. The email is already in use. Please use a different email address."); // Displaying specific error message
-            } else {
-              alert('An error occurred while registering the user. Please try again later.');
-            }
-          } else {
-            alert('An error occurred while registering the user. Please try again later.');
-          }
-        });
-    }
-  };    
+  const {values, errors, touched, handleBlur, handleChange, setFieldValue, setFieldError, handleSubmit} = useFormik({
+    initialValues:{
+      FirstName: "",
+      MiddleName: "",
+      LastName:"",
+      birthday : "",
+      sex:"",
+      contactNum:"",
+      houseNum:"",
+      street:"",
+      brgy:"",
+      city:"",
+      prov:"",
+      email:"",
+      UserName:"",
+      password:"",
+      confirmpassword:""
+    },
+    validationSchema:registerSchema,
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        const response = await axios.post('http://localhost:5000/api/user/', values);
+        console.log('Response from server:', response.data);
+        const { token, userId } = response.data;
+        localStorage.setItem('userToken', token);
+        localStorage.setItem('userId', userId);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        
+        window.location.href=(`/patient/myprofile/${userId}`);
+      } catch (error) {
+        console.error('Error submitting registration:', error);
+        if (error.response && error.response.data && error.response.data.error === 'Email already in use') {
+          setFieldError('email', 'Email already exists.');
+        } else if (error.response && error.response.data && error.response.data.error === 'Username already in use') {
+          setFieldError('UserName', 'Username already exists.');
+        }else {
+          alert('An error occurred while submitting the form. Please try again.');
+        }
+      } finally {
+        setSubmitting(false); // Set submitting state back to false
+      }
+    },
+  });
 
+  const handleDateChange = (e) => {
+    setFieldValue("birthday", e.target.value);
+  };
+
+
+  console.log(errors)
   return (
     <>
       <main>
@@ -136,236 +91,244 @@ export default function Register() {
             <DiaLogo src={ClientLogo} />
           </div>
           <div id="register-form">
-            <form onSubmit={handleSubmit} id="form-form-reg">
-              <Head2 text="Register" />
-
-              <div className="name-container">
-                <div className="form-group">
-                  <label htmlFor="firstName" className="name-input-label">
-                    First Name<span className="asterisk">*</span>
-                  </label>
-                  <InputField
-                    id="firstName"
-                    placeholder=" First Name"
-                    className="name-input"
-                    value={FirstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="MiddleName" className="name-input-label">
-                    Middle Name<span className="asterisk">*</span>
-                  </label>
-                  <InputField
-                    id="middleName"
-                    placeholder=" Middle Name"
-                    className="name-input"
-                    value={MiddleName}
-                    onChange={(e) => setMiddleName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="lastName" className="name-input-label">
-                    Last Name<span className="asterisk">*</span>
-                  </label>
-                  <InputField
-                    id="lastName"
-                    placeholder=" Last Name"
-                    className="name-input"
-                    value={LastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
+            <div className="scroll-form">
+            <form onSubmit={handleSubmit} autoComplete='off' id='form-reg'>
+              <div className="input-div-reg">
+              <label htmlFor='FirstName'>First Name <span>*</span></label>
+              <input
+              value={values.FirstName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              id='FirstName'
+              className={errors.FirstName && touched.FirstName ? "input-error" : ""}
+              type="name"
+              placeholder='First Name'
+              />
               </div>
-
-              <div className="form1">
-                <div className="form-group">
-                  <label>Birthday</label> <span className="asterisk-birthday">*</span>
-                  <DatePicker
-                    id="date"
-                    placeholder=" Birthday"
-                    className="user-input"
-                    selected={birthday}
-                    onChange={handleBirthdayChange}
+              <p className='errors-p'>{errors.FirstName}</p>
+             <div className="input-div-reg">
+              <label htmlFor='MiddleName'>Middle Name <span>*</span></label>
+              <input
+              value={values.MiddleName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              id='MiddleName'
+              type="name"
+              placeholder='Middle Name'
+              className={errors.MiddleName && touched.MiddleName ? "input-error" : ""}
+              />
+              </div>
+              <p className='errors-p'>{errors.MiddleName}</p>
+              <div className="input-div-reg">
+              <label htmlFor='LastName'>Last Name <span>*</span></label>
+              <input
+              value={values.LastName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              id='LastName'
+              type="name"
+              placeholder='Last Name'
+              className={errors.LastName && touched.LastName ? "input-error" : ""}
+              />
+              </div>
+               <p className='errors-p'>{errors.LastName}</p>
+              <div className="input-div-reg">
+              <label htmlFor='birthday'>Birthday <span >*</span></label>
+              <input
+                id="birthday"
+                type="date"
+                className="user-input"
+                value={values.birthday}
+                onChange={handleDateChange}
+                onBlur={handleBlur}
+                dateFormat="MM//DD/YYYY"
                   />
-                </div>
-                <div className="form-group">
-                  <label>Sex</label> <span className="asterisk-sex">*</span>
+              </div>
+              <p className='errors-p'>{errors.birthday}</p>
+              <div className="input-div-reg">
+              <label htmlFor='sex'>Sex <span>*</span></label>
                   <select
                     id="sex"
                     className="user-input"
-                    value={sex}
-                    onChange={(e) => setSex(e.target.value)}
+                    value={values.sex}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     required
                   >
                     <option value="" disabled>
                       Sex
                     </option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                   </select>
-                </div>
-                <div className="form-group">
-                  <label>Contact No.</label> <span className="asterisk-contact">*</span>
-                  <InputField
-                    id="num"
+                  </div>
+                  <p className='errors-p'>{errors.sex}</p>
+              <div className="input-div-reg">
+              <label htmlFor='contactNum'>Contact No.<span>*</span></label>
+                  <input
+                    id="contactNum"
                     placeholder=" Contact No."
-                    className="user-input"
-                    value={contactNum}
-                    onChange={(e) => setContactNum(e.target.value)}
+                    className={errors.contactNum && touched.contactNum ? "input-error" : ""}
+                    value={values.contactNum}
+                    onChange={handleChange}
                     required
                   />
-                </div>
               </div>
-{/*---------------------- ADDRESS INPUT FIELDS ----------------------*/}
-              <div className="address-container">
-                <div className="form-group">
-                  <label htmlFor="house" className="user-input-label house-input-label">
+                  <p className='errors-p'>{errors.contactNum}</p>
+              <div className="input-div-reg">
+                  <label htmlFor="houseNum" className="user-input-label house-input-label">
                     House no.<span className="asterisk">*</span>
                   </label>
-                  <InputField
-                    id="house"
+                  <input
+                    id="houseNum"
                     placeholder=" House no."
-                    className="user-input house-input"
-                    value={houseNum}
-                    onChange={(e) => sethouseNum(e.target.value)}
+                    className={errors.houseNum && touched.houseNum ? "input-error" : ""}
+                    value={values.houseNum}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     required
                   />
-                </div>
-                <div className="form-group">
+              </div>
+                  <p className='errors-p'>{errors.houseNum}</p>
+              <div className="input-div-reg">
                   <label htmlFor="street" className="user-input-label">
                     Street<span className="asterisk">*</span>
                   </label>
-                  <InputField
+                  <input
                     id="street"
                     placeholder=" Street"
-                    className="user-input"
-                    value={street}
-                    onChange={(e) => setStreet(e.target.value)}
+                    className={errors.street && touched.street ? "input-error" : ""}
+                    value={values.street}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     required
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="barangay" className="user-input-label">
+              </div>
+                  <p className='errors-p'>{errors.street}</p>
+              <div className="input-div-reg">
+                  <label htmlFor="brgy" className="user-input-label">
                     Barangay<span className="asterisk">*</span>
                   </label>
-                  <InputField
-                    id="barangay"
+                  <input
+                    id="brgy"
                     placeholder=" Barangay"
-                    className="user-input"
-                    value={brgy}
-                    onChange={(e) => setBrgy(e.target.value)}
+                    className={errors.brgy && touched.brgy ? "input-error" : ""}
+                    value={values.brgy}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     required
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="municipality-city" className="user-input-label">
+                  </div>
+                  <p className='errors-p'>{errors.brgy}</p>
+                  <div className="input-div-reg">
+                  <label htmlFor="city" className="user-input-label">
                    City/Municipality<span className="asterisk">*</span>
                   </label>
-                  <InputField
-                    id="municipality-city"
+                  <input
+                    id="city"
                     placeholder=" City/Municipality"
-                    className="user-input"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    className={errors.city && touched.city ? "input-error" : ""}
+                    value={values.city}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     required
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="province" className="user-input-label">
+                  </div>
+                  <p className='errors-p'>{errors.city}</p>
+                  <div className="input-div-reg">
+                   <label htmlFor="prov" className="user-input-label">
                     Province<span className="asterisk">*</span>
                   </label>
-                  <InputField
-                    id="province"
+                  <input
+                    id="prov"
                     placeholder=" Province"
-                    className="user-input"
-                    value={prov}
-                    onChange={(e) => setProv(e.target.value)}
+                    className={errors.prov && touched.prov ? "input-error" : ""}
+                    value={values.prov}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     required
                   />
-                </div>
-              </div>
-
-              <div className="useremail-container">
-                <div className="form-group">
+                  </div>
+                  <p className='errors-p'>{errors.prov}</p>
+                  <div className="input-div-reg">
                   <label htmlFor="email" className="user-input-label">
                     Email<span className="asterisk">*</span>
                   </label>
-                  <InputField
+                  <input
                     id="email"
                     placeholder=" Email"
-                    className="user-input"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    className={errors.email && touched.email ? "input-error" : ""}
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     required
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="username" className="user-input-label">
+                  </div>
+                  <p className='errors-p'>{errors.email}</p>
+                  <div className="input-div-reg">
+                  <label htmlFor="UserName" className="user-input-label">
                     Username<span className="asterisk">*</span>
                   </label>
-                  <InputField
-                    id="username"
+                  <input
+                    id="UserName"
                     placeholder=" Username"
-                    className="user-input"
-                    value={UserName}
-                    onChange={(e) => setUserName(e.target.value)}
+                    className={errors.UserName && touched.UserName ? "input-error" : ""}
+                    value={values.UserName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     required
                   />
-                </div>
-              </div>
-
-              <div className="password-container">
-                <div className="form-group password-input">
-                  <label htmlFor="pass" className="password-label">
+                  </div>
+                  <p className='errors-p'>{errors.UserName}</p>
+                  <div className="input-div-reg">
+                  <label htmlFor="password" className="user-input-label">
                     Password<span className="asterisk">*</span>
                   </label>
-                  <input
-                    id="pass"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder=" Password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    required
-                  />
-                  <div className="toggle-eye" onClick={() => togglePasswordVisibility('password')}>
-                    {showPassword ? <RiEyeFill /> : <AiFillEyeInvisible />}
+                  <div className="password-input">
+                    <input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder=" Password"
+                      className={errors.password && touched.password ? "input-error" : ""}
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <span className="eye-icon" onClick={togglePasswordVisibility}>
+                      {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
+                    </span>
                   </div>
                 </div>
-
-                <div className="form-group password-input-container">
-                  <label htmlFor="confirmpass" className="password-label">
+                  <p className='errors-p'>{errors.password}</p>
+                  <div className="input-div-reg">
+                  <label htmlFor="confirmpassword" className="user-input-label">
                     Confirm Password<span className="asterisk">*</span>
                   </label>
-                  <input
-                    id="confirmpass"
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    placeholder=" Confirm Password"
-                    value={confirmpassword}
-                    onChange={handleConfirmPasswordChange}
-                    required
-                  />
-
-                  <div
-                    className="toggle-eye-confirm"
-                    onClick={() => togglePasswordVisibility('confirmPassword')}
-                  >
-                    {showConfirmPassword ? <RiEyeFill /> : <AiFillEyeInvisible />}
+                  <div className="password-input">
+                    <input
+                      id="confirmpassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder=" Confirm Password"
+                      className={errors.confirmpassword && touched.confirmpassword ? "input-error" : ""}
+                      value={values.confirmpassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <span className="eye-icon" onClick={toggleConfirmPasswordVisibility}>
+                      {showConfirmPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
+                    </span>
                   </div>
                 </div>
-              </div>
-
+                  <p className='errors-p'>{errors.confirmpassword}</p>
               <div className="terms">
                 <Link onClick={handleTermsLinkClick}>
                   <p id="terms-p">Terms of Use and Privacy Policy</p>
                 </Link>
-                {openModal && <Terms closeModal={handleCloseModal} />}
+                {openModal && <Terms closeModal={handleCloseModal}/>}
               </div>
-              <Button id="signup" label="Sign Up" type="submit" />
+              <button type='submit' id="register-btn">Submit</button>
             </form>
+            </div>
           </div>
         </div>
       </main>

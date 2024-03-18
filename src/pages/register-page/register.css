@@ -31,17 +31,21 @@ form {
 
 #register-form {
   background-color: whitesmoke;
-  height: 100vh;
+  height: 100%;
   width: 50vw;
   margin: 0 auto;
-  padding: 0;
+  padding: 100px;
   position: absolute;
   top: 0;
   right: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 0;
+  justify-content: flex-start;
   align-items: center;
+  overflow-y:scroll;
+  scroll-margin: 6px;
+  scroll-behavior: smooth;
 }
 
 #register-logo {
@@ -60,7 +64,7 @@ form {
 .name-container {
   display: flex;
   width: 90%;
-  gap: 1rem;
+  /* gap: 1rem; */
 }
 
 .address-container {
@@ -80,7 +84,7 @@ form {
 
 input {
   width: 100%;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   height: 2.5rem;
   font-size: medium;
   border-radius: 10px;
@@ -101,11 +105,12 @@ input {
   border-radius: 10px;
 }
 
-.form {
+#form-reg{
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  gap: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    margin: 0;
 }
 
 .form1 {
@@ -319,45 +324,81 @@ input {
 #username {
   border-radius: 10px;
 }
+/* new CODE 3/16/24 - 3:05AM*/
+.input-error{
+  border: red 1px solid;
+}
+.errors-p{
+  font-size: 10px;
+  color: red;
+  display: flex;
+  /* margin: 0 auto; */
+}
 
 @media screen and (width: 1366px){
   *{
     font-size: 13px;
   }
-  #firstName, #middleName, #lastName, #date, #sex, #num,
-  #house, #street, #barangay, #municipality-city, #province,
-  #email, #username, #pass, #confirmpass{
+  #FirstName, #MiddleName, #LastName, #birthday, #contactNum,
+  #houseNum, #street, #brgy, #city, #prov,
+  #email, #UserName, #password, #confirmpassword{
     font-size: 12px;
     height: 30px;
+    width: 200px;
+    display: flex;
+    /* border-radius: 0; */
   }
-  #form-form-reg{
-    width: 100%;
-    
+  #sex{
+    width: 200px;
+    height: 30px;
+    font-size: 12px;
+    margin-right: 2px;
+    display: flex;
+    /* justify-content: center; */
   }
 
-  .password-container{
+  /* newwwww coddeeeeeeeee */
+  #register-form {
+    height: 95%;
+    width: 50vw;
+    gap: 1rem;
+    padding: 20px;
+    align-items: center;
+  }
+  #register-btn{
+    font-size: 12px;
+    width: 100px;
+    margin-top: 0.5px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .input-div-reg{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start ;
     gap: 0;
   }
-  #pass, #confirmpass{
-    width: 298px;
+  .errors-p{
+    margin: 0.3rem;
   }
-  #terms-p{
-   font-size: 11px;
-   display: block;
+  #form-reg{
+    gap: 0.1rem;
+  }
+  .password-input {
+    position: relative;
+    width: fit-content;
+  }
+  .eye-icon {
+    position: absolute;
+    top: 60%;
+    right: 10px; /* Adjust the position of the icon */
+    transform: translateY(-50%);
+    cursor: pointer;
   }
   .terms{
-   
-    margin-left: 35rem;
-  }
-  #signup{
-    font-size: 13px;
-  }
-  .toggle-eye{
-    top:527px;
-    right: 351px;
-  }
-  .toggle-eye-confirm{
-    top: 38px;
-    right: 9px;
+    display: flex;
+    margin:0;
   }
 }

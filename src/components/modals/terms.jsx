@@ -20,7 +20,7 @@ function Terms({ closeModal }) {
           <button onClick={() => closeModal(false)}> X </button>
         </div>
         <div className="title">
-          <h1>Terms of Use and Privacy Policy</h1>
+          <h1 id="h1-terms">Terms of Use and Privacy Policy</h1>
         </div>
         <div className="body">
           <div className="scrollable-content">

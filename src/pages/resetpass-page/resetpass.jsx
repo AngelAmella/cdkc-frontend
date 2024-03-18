@@ -62,7 +62,7 @@ export default function ResetPassword() {
                     <div id='resetpass-logo'><DiaLogo src={ClientLogo} /></div>
 
                     <div id='resetpass-form'>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} id='form-reset'>
                             <Head2 text="Reset Password"></Head2>
                             <h3>Please enter the email address you'd <br /> like your password reset information sent to.</h3>
                             <div className="resetpass-input">

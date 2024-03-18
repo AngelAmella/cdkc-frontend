@@ -196,9 +196,9 @@ h3 span {
     overflow-y: auto; /* Allow vertical scrolling */
 }
 
-.hidden {
+/* .hidden {
     width: 0 !important;
-}
+} */
 
 .hamburger-button {
     position: fixed;
@@ -628,30 +628,31 @@ thead{
 }
 @media screen and (max-width:1366px) {
     .sidenav ul{
-        margin: 150px 10px 10px 10px;  /* Four values: top, right, bottom, left */
-        padding: 100px 20px  50px;
+        margin: 10px 10px 10px 10px;  /* Four values: top, right, bottom, left */
+        padding: 45px 20px  50px; /*changed top padding to make logo visible*/
     }
 
     .dash-employee{
-        width: 93vw;
+        width: 86vw; /*changed*/
         height: 565px;
+        margin-left: 160px; /*to  make dashboard at the right side*/
     }
 
     .purchase-wrapper-amn{
         margin-top: -40px;
         margin-left: 54px;
         padding-left: 20px;
-        width: 64.2%;
+        width: 67%;  /*CHANGED*/
         height: 118px;
     }
     .dash-employee p {
         font-size: 15px;
     }
     .clock-wrapper-adm{
-        margin-left: 925px;
+        margin-left: 890px; /*CHANGED*/
         height:118px;
         margin-top:-158px;
-        width: 20%;
+        width: 16.8%; /*CHANGED*/
     }
     #clock-p-adm{
         margin-bottom: 120px;
@@ -659,7 +660,7 @@ thead{
         font-size: 0;
     }
     #time-p-adm{
-        margin-top: -30px;
+        /*DELETED LINE REDUNDANT*/
         padding: 0;
         font-weight: 300;
         margin-top: 0;
@@ -692,5 +693,14 @@ thead{
     }
     .sort-dropdown-appointment-adm {
         margin-top: -15px;
+    }
+    .sidenav{ /*NEW*/
+        background-color: #e6eef1;
+        /* background-color: #264e75; */
+        margin-top: 55px;
+        width: 170px;
+    }
+    .upcoming-wrapper{
+        width: 73.6%; /*NEW*/
     }
 }

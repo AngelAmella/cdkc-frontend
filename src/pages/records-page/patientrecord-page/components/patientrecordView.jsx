@@ -48,22 +48,26 @@ export default function PatientRecordView() {
   };
 
   const handleSaveClick = () => {
-    const { _id, ...updatedData } = editingRecord;
-    axios
-      .put(`http://localhost:5000/api/records/${_id}`, updatedData)
-      .then((result) => {
-        setData((prevData) => {
-          const updatedData = prevData.map((record) =>
-            record._id === _id ? editingRecord : record
-          );
-          return updatedData;
+    const confirmation = window.confirm("Are you sure you want to save your changes?");
+    if (confirmation) {
+      const { _id, ...updatedData } = editingRecord;
+      axios
+        .put(`http://localhost:5000/api/records/${_id}`, updatedData)
+        .then((result) => {
+          setData((prevData) => {
+            const updatedData = prevData.map((record) =>
+              record._id === _id ? editingRecord : record
+            );
+            return updatedData;
+          });
+          setEditingRecord(null);
+          alert("Changes saved successfully.");
+        })
+        .catch((err) => {
+          console.error(err);
         });
-        setEditingRecord(null);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+    }
+  };  
 
   const handleCancelClick = () => {
     setEditingRecord(null);

@@ -27,7 +27,7 @@ export default function MyProfile() {
     email: ""
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [originalUser, setOriginalUser] = useState({}); // Store the original user data
+  const [originalUser, setOriginalUser] = useState({}); 
 
   const { id } = useParams();
 
@@ -110,7 +110,7 @@ export default function MyProfile() {
           <PtnSidebar/>
 
           <div className="patient-info">
-            <h1 id="details-h1">Patient Details</h1>
+            <h1 id="details-h1">{user.UserName}</h1>
 
             <div className="patient-details-section">
               <div className="profile-view">
