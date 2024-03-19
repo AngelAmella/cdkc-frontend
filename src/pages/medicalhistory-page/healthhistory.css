@@ -64,5 +64,9 @@ thead {
     height: 565px;
     margin-left: 160px;
   }
+  #medhisto-array{
+    overflow-y: scroll;
+    
+  }
 
 }

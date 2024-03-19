@@ -76,7 +76,7 @@ axios
     console.log('Admin Response: ', adminResponse);
     const { token, adminId } = adminResponse.data;
 
-    // Store admin token in localStorage
+    // Store admin token in Cookies
     Cookies.set('adminToken', token);
     Cookies.set('adminId', adminId);
 

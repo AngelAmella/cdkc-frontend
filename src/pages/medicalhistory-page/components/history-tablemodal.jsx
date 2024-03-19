@@ -31,6 +31,7 @@ export default function HistoryModalPtn({ patientId, onClose }) {
               <th>Blood Pressure</th>
               <th>Temperature</th>
               <th>Surgeries</th>
+              <th>Created At</th>
             </tr>
           </thead>
           <tbody>
@@ -41,6 +42,7 @@ export default function HistoryModalPtn({ patientId, onClose }) {
                 <td>{history.bloodPressure}</td>
                 <td>{history.temperature}</td>
                 <td>{history.surgeries}</td>
+                <td>{history.createdAt}</td>
               </tr>
             ))}
           </tbody>

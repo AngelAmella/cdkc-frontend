@@ -202,23 +202,31 @@ thead {
 #label-expire{
   font-weight: 500;
 }
+ /* NEW CODE */
+.sup-input-error{
+  border: 1px solid red;
+}
+.sup-errors-p{
+  color: red;
+  font-size: 9px;
+  display: flex;
+  margin: 0;
+}
 
 @media screen and (max-width:1366px) {
   .supplies-row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /*CHANGED*/
     justify-content: center;
     align-items: center;
   }
   .create-stocks{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    height: 500px; /*MODIFIED */
     justify-content: center;
-    height: 20px;
-    /* width: 85vw; */
+    width: 200px;
+    margin-top: 10px; /*CHANGED*/
     padding: 20px;
-    margin: 20px 0 0 0;
+   
   }
 
   .supplies-table-content {
@@ -233,7 +241,7 @@ thead {
  
   .input-supplies{
     height: 30px;
-    width: 100px;
+    width: 200px; /*MODIFIED*/
     margin: 0;
     font-size: 12px;
   }
@@ -269,7 +277,7 @@ thead {
     width: fit-content;
   }
   #searchbar-supplies{
-    /* margin-left: 350px; */
+    /* margin-left: 350px; MODIFIED*/
     width: 400px;
     font-size: 12px;
     height: 30px;
@@ -278,6 +286,9 @@ thead {
    justify-content: center;
    align-items: center;
    height: 320px;
+   width: 50%; /*NEW CODE*/
+   margin-top: 0;
+   margin-left: 0;
   }
   .top-supplies{
     display: flex;
@@ -285,7 +296,7 @@ thead {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    margin-top: 20px;
+    margin-top: -100px; 
 
   }
   #supplies-edit-btn, #supplies-delete-btn{
@@ -296,15 +307,37 @@ thead {
     align-items: center;
   }
 
+ 
   /* `````````````NEWCODE */
   .form-create-stocks{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 1rem;
     justify-content: center;
     align-items: center;
-    margin-left: 200px;
+    /* margin-left: 200px; */
+    width: 400px;
+    font-size: 12px;
   }
-
-  
+  .sup-input-error{
+    width: 200px;
+    font-size: 12px;
+  }
+  .sup-valid-input{
+    display: flex;
+    flex-direction: column;
+  }
+  #img-upload{
+    font-size: 12px;
+  }
+  #sup-add{
+    font-size: 12px;
+    height: 30px;
+    margin: 20px;
+  }
+  .supplies-table-content{
+    margin-left: -10px;
+    margin-right: 0;
+    width: 200%;
+  }
 }

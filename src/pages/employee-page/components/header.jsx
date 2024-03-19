@@ -17,6 +17,15 @@ export default function Header() {
     const [open, setOpen] = useState(false)
     const [adminName, setAdminName] = useState('');
 
+    const handleLogout =  async () => {
+        await Cookies.remove("adminId");
+        await Cookies.remove("adminToken");
+        await Cookies.remove("userId");
+        await Cookies.remove("userToken");
+        await navigate(`/`)
+        toast.success('You have successfully logged out');
+    }
+
     useEffect(() => {
         // Fetch the admin data here
         const adminId = Cookies.get("adminId");
@@ -33,14 +42,6 @@ export default function Header() {
         }
     }, []);
 
-    const handleLogout =  async () => {
-        await Cookies.remove("userId");
-        await Cookies.remove("userToken");
-        await Cookies.remove("adminId");
-        await Cookies.remove("adminToken");
-        await navigate(`/`)
-        toast.success("You have successfully logout")
-    }
     
     return(
         <>
@@ -73,6 +74,7 @@ export default function Header() {
                     </div>
                 </div>
             </header>
+           
         </>
     )
 }

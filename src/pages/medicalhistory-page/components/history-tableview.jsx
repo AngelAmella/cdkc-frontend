@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import HistoryModalPtn from "./history-tablemodal";
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie'
 
 export default function HistoryTablePtn() {
   const [data, setData] = useState([]);
-  const [showMedicalHistory, setShowMedicalHistory] = useState(false);
   const [selectedPatientId, setSelectedPatientId] = useState(null);
-  // const [searchQuery, setSearchQuery] = useState("");
   const { medicalId } = useParams();
   const [userId, setUserId] = useState(null);
-  const [UserName, setUserName] = useState("")
-
+  const [UserName, setUserName] = useState("");
 
   const filteredName = data.filter((record) => {
     return record.patientName === UserName;
@@ -48,23 +44,12 @@ export default function HistoryTablePtn() {
 
   const handleViewDetails = (medicalId) => {
     setSelectedPatientId(medicalId);
-    setShowMedicalHistory(true);
-
-    console.log(selectedPatientId);
-
-    axios
-      .get(`http://localhost:5000/api/records/get-medical-history/${medicalId}`)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching medical record", error);
-      });
   };
 
-//   const fullName = `${response.data.FirstName} ${response.data.MiddleName} ${response.data.LastName}`;
-// setUserName(fullName);
-
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString(); 
+  };
 
   return (
     <>
@@ -72,19 +57,13 @@ export default function HistoryTablePtn() {
         <div className="table-history-container">
           <table className="table-ptn">
             <thead id="header-patientrecord">
-              {/* <input
-                id="searchbar-record"
-                type="text"
-                placeholder="Search Patient Name"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              /> */}
               <tr>
                 <th>Patient Name</th>
                 <th>Weight</th>
                 <th>Height</th>
                 <th>Age</th>
                 <th>Sex</th>
+                <th>Created At</th>
                 <th>More Details</th>
               </tr>
             </thead>
@@ -96,6 +75,7 @@ export default function HistoryTablePtn() {
                   <td>{record.height}</td>
                   <td>{record.age}</td>
                   <td>{record.sex}</td>
+                  <td>{formatDate(record.createdAt)}</td> {/* Format the date here */}
                   <td>
                     <button
                       className="view-details"
@@ -110,13 +90,37 @@ export default function HistoryTablePtn() {
           </table>
         </div>
       </div>
-      {showMedicalHistory && (
-        <div className="overlay">
-          <div className="medicalrecord-modal-container">
-            <HistoryModalPtn
-              patientId={selectedPatientId}
-              onClose={() => setShowMedicalHistory(false)}
-            />
+      {selectedPatientId && (
+        <div className="medicalrecord-table-content">
+          <div className="medical-table-container">
+            <table className="modal-table">
+              <thead id="header-medicalrecord">
+                <tr>
+                  <th>Allergies</th>
+                  <th>Diagnosis</th>
+                  <th>Blood Pressure</th>
+                  <th>Temperature</th>
+                  <th>Surgeries</th>
+                  <th>Created At</th>
+                </tr>
+              </thead>
+              <tbody id="medhisto-array">
+                {data
+                  .filter((history) => history._id === selectedPatientId)
+                  .map((history) => (
+                    history.medicalHistory.map((medicalRecord, index) => (
+                      <tr key={index}>
+                        <td>{medicalRecord.allergies}</td>
+                        <td>{medicalRecord.diagnosis}</td>
+                        <td>{medicalRecord.bloodPressure}</td>
+                        <td>{medicalRecord.temperature}</td>
+                        <td>{medicalRecord.surgeries}</td>
+                        <td>{formatDate(history.createdAt)}</td> {/* Format the date here */}
+                      </tr>
+                    ))
+                  ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}

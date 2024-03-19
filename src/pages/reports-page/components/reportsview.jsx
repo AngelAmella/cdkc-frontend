@@ -321,7 +321,7 @@ const ReportsView = ({ tableData, selectedType, searchedQuery, generateButtonCli
   
               return isMatch || new RegExp(`\\b${searchQueryWithPesoSign}\\b`, 'i').test(numericPrice.toString());
             }
-
+  
           // Check for AM/PM suffix in appointmentTime when selectedType is "Appointments"
           if (selectedType === "Appointments" && key === "appointmentTime") {
             const timeWithAmPm = getAmPmSuffix(item.appointmentTime);
@@ -337,6 +337,7 @@ const ReportsView = ({ tableData, selectedType, searchedQuery, generateButtonCli
       });
     }
   });
+  
   
   return (
     <div>

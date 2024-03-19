@@ -7,8 +7,9 @@ import { reportSchema } from "../../../components/schema/schemaindex";
 export default function ReportsForm() {
   
   const [fetchedData, setFetchedData] = useState(null);
+  const [showTable, setShowTable] = useState(false); // State to control table visibility
 
-  const {values, errors, touched, handleBlur, handleChange, setFieldValue, handleSubmit} = useFormik({
+  const {values, errors, touched, handleBlur, setFieldValue, handleSubmit} = useFormik({
     initialValues:{
       selectedType: "",
       firstParams: ""
@@ -58,8 +59,8 @@ export default function ReportsForm() {
         const response = await axios.post(apiUrl, params);
         const responseData = response.data;
         setFetchedData(responseData); 
+        setShowTable(true);
 
-        // Process the fetched data as needed
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -68,6 +69,14 @@ export default function ReportsForm() {
 
   const handleTypeChange = (e) => {
     setFieldValue("selectedType", e.target.value);
+    setShowTable(false);
+  }
+  const handleParamsChange = (e) => {
+    const { value } = e.target;
+    setFieldValue("firstParams", value);
+    if (!value.trim()) {
+      setShowTable(false); // Hide the table when the query input is empty
+    }
   }
 
   return (
@@ -101,7 +110,7 @@ export default function ReportsForm() {
             className={errors.firstParams && touched.firstParams ? "rep-input-error" : ""}
             type="text"
             value={values.firstParams}
-            onChange={handleChange}
+            onChange={handleParamsChange}
             onBlur={handleBlur}
             placeholder="Query"
           />
@@ -110,7 +119,7 @@ export default function ReportsForm() {
         <button type="submit" id="reports-form-btn">Generate</button>
       </form>
 
-      {fetchedData && (
+      {showTable && fetchedData && (
         <ReportsView
           tableData={fetchedData}
           selectedType={values.selectedType}

@@ -1,10 +1,14 @@
 import * as yup from 'yup'
 
 const passwordRules = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-const contactRules = /^[0-9]+$/;
+const numberRules = /^[0-9]+$/;
 const userNameRules = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 const emailRule = /^[\w-.]+@(gmail|yahoo|outlook)\.(com)$/;
-const alphaOnlyRule = /^[A-Za-z]+$/;
+const alphaOnlyRule = /^[A-Za-z\s]+$/; //allows spacing
+const numberAndDecimalRule = /^[0-9]+(\.[0-9]+)?$/;
+const imageFileRule = /\.(jpg|jpeg|png|gif|bmp)$/i;
+
+
 
 export const registerSchema = yup.object().shape({
     FirstName: yup.string().max(20, 'Reached maximum quantity of characters.').matches(alphaOnlyRule, 'First Name must only contain letters.').required("First Name required."),
@@ -13,9 +17,9 @@ export const registerSchema = yup.object().shape({
     
     birthday:yup.string().required("Birthday is required."),
     sex:yup.string().oneOf(["Male", "Female"], 'Please select gender.').required("Gender is required."),
-    contactNum:yup.string().max(11, 'Reached maximum quantity of digits.').matches(contactRules, 'Contact number must only contain numbers.').required("Contact Number is required."),
+    contactNum:yup.string().max(11, 'Reached maximum quantity of digits.').matches(numberRules, 'Contact number must only contain numbers.').required("Contact Number is required."),
     
-    houseNum:yup.string().max(20, 'Reached maximum quantity of characters.').required("House number required."),
+    houseNum:yup.string().max(30, 'Reached maximum quantity of characters.').required("House number required."),
     street:yup.string().max(20, 'Reached maximum quantity of characters.').required("Street required."),
     brgy:yup.string().max(20, 'Reached maximum quantity of characters.').matches(alphaOnlyRule, 'Barangay must only contain letters.').required("Barangay required."),
     city:yup.string().max(20, 'Reached maximum quantity of characters.').matches(alphaOnlyRule, 'City must only contain letters.').required("City required."),
@@ -65,7 +69,26 @@ export const registerSchema = yup.object().shape({
     .required("Confirm Password required."),
 })
 
+export const suppliesSchema = yup.object().shape({
 
+  itemName: yup.string().max(30, "Maximum characters reached.").min(10, "Product name must be at least 10 minimum.").matches(alphaOnlyRule, "Product Name must only contain letters.").required('Product Name required.'),
+  itemDescription: yup.string().max(40, "Maximum characters reached.").min(10, "Description must be at least 10 minimum.").matches(alphaOnlyRule, "Product Description must only contain letters.").required('Product Description required.'),
+  stocksAvailable: yup.string().max(5, "Maximum digits reached.").min(2, "Must be atleast two digits.").matches(numberRules, "Availability must only contain numbers.").required("Stock availability required."),
+  itemPrice:yup.string().max(5,"Maximum digits reached.").min(2, "Must be at least two digits.").matches(numberAndDecimalRule, "e.g 12.45 of input").required('Item Price required'),
+  expireDate: yup.string()
+  .required('Expiration Date is required.')
+  .test('future-date', 'Date must not expire 2 weeks from now.', function (value) {
+    if (!value) return true; // Pass if value is not provided
+    const currentDate = new Date();
+    const selectedDate = new Date(value);
+    const twoWeeksFromNow = new Date(currentDate.getTime() + (14 * 24 * 60 * 60 * 1000)); // Adding two weeks in milliseconds
+    return selectedDate > twoWeeksFromNow;
+  }),
+  itemImg: yup.mixed().test('fileType', 'Image file required', (value) => {
+    if (!value) return false; // Check if file exists
+    return value instanceof File;
+  })
+})
 
 export const reportSchema = yup.object().shape({
   selectedType:yup.string().oneOf(["Appointments", "Records", "Inventory", "Users", "Orders"], 'Please select parameters.').required("Please select Parameters"),
