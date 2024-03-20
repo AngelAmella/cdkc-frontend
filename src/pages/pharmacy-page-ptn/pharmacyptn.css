@@ -178,13 +178,13 @@ main {
 }
 
 #close-btn-pharm{
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin-top: 40%;
   cursor: pointer;
   margin-left: 400px;
-  /* background-color: #3398CC; */
+  background-color: #da3232;
 }
 
 #qty-modal-p{

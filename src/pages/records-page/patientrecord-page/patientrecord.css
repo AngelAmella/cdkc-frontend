@@ -279,6 +279,10 @@ thead {
   margin-top: -10px;
 }
 
+/* .input-medicalrecord{
+  border: 1px solid red;
+  
+} */
 @media screen and (max-width: 1366px){
   .patientrecord-container {
     margin-right: -140px;
@@ -310,6 +314,7 @@ thead {
     width: 300px;
     height: 370px;
     margin-left: 220px;
+    gap:1rem;
   }
 
   .create-medicalrecord{
@@ -317,6 +322,7 @@ thead {
     height: 370px;
     margin-top: 30px;
     margin-left: -200px;
+    gap:1rem;
   }
 
   .input-patientrecord.custom-gender {
@@ -335,7 +341,7 @@ thead {
   }
 
   .input-medicalrecord{
-    width: 100% ;
+    width: 300px ;
     font-size: 12px;
     height: 30px;
   }
@@ -356,18 +362,16 @@ thead {
     font-size: 12px;
   }
 
-  #medform-btn.note-btn.submit {
-    width: 70px;
-    height: 30px;
-    font-size: 12px;
-  }
-  
+
   .custom-gender{
     width: 150px;
   }
 
   #medform-btn{
     height: 30px;
+    font-size: 12px;
+    width: 70px;
+    margin-top: 10px;
   }
 
   #searchbar-record{
@@ -478,6 +482,7 @@ thead {
 .rec-input-error{
   font-size: 12px;
   height: 30px;
+  width: 300px;
 }
 .validations-error{
   margin: 0;
@@ -488,17 +493,25 @@ thead {
   font-size: 10px;
   margin: 0;
   color: red;
-  width:300px;
 }
 
-.input-patientrecord{
+.input-patientrecord, .histo-error-input {
   width:300px;
-
+  font-size: 12px;
+  height: 30px;
 }
+
 #add-record-btn{
   width: 70px;
   font-size: 12px;
   height: 30px;
+  margin-top:10px;
+}
+
+.med-errors-p{
+  color:red;
+  font-size: 10px;
+  margin:0;
 }
 
 }

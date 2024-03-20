@@ -50,6 +50,19 @@ thead {
   display: table-row-group;
 }
 
+/* new */
+.close-details {
+  margin-left: 790px;
+  font-size: 12px;
+}
+.table-history-container {
+  width: 82%;
+  margin-left: 100px;
+}
+.modal-table {
+  width: 94%;
+  /* margin-left: 120px; */
+}
 @media screen and (max-width: 1366px){
   .view-details{
     font-size: 12px;
@@ -68,5 +81,4 @@ thead {
     overflow-y: scroll;
     
   }
-
 }

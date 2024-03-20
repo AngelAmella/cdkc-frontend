@@ -46,6 +46,10 @@ export default function HistoryTablePtn() {
     setSelectedPatientId(medicalId);
   };
 
+  const handleCloseDetails = () => {
+    setSelectedPatientId(null);
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString(); 
@@ -121,6 +125,12 @@ export default function HistoryTablePtn() {
                   ))}
               </tbody>
             </table>
+            <button
+              className="close-details"
+              onClick={handleCloseDetails}
+            >
+              Close
+            </button>
           </div>
         </div>
       )}

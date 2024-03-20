@@ -511,6 +511,8 @@ h3 span {
     flex-direction: column;
     gap: 35px;
 }
+
+
 @media screen and (max-width: 1366px){
     .ptnheader{
         width: 99vw;

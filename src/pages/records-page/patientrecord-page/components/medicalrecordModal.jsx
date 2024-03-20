@@ -77,7 +77,7 @@ export default function MedicalRecordModal({ patientId, onClose }) {
               <th>Diagnosis</th>
               <th>Blood Pressure</th>
               <th>Temperature</th>
-              <th>Surgeries</th>
+              <th>Symptoms</th> {/*SURGERIES TALAGA TO*/}
               <th>Action</th>
             </tr>
           </thead>

@@ -4,9 +4,10 @@ const passwordRules = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 const numberRules = /^[0-9]+$/;
 const userNameRules = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 const emailRule = /^[\w-.]+@(gmail|yahoo|outlook)\.(com)$/;
-const alphaOnlyRule = /^[A-Za-z\s]+$/; //allows spacing
+const alphaOnlyRule = /^[A-Za-z\s,]+$/; //allows spacing & COMMA
 const numberAndDecimalRule = /^[0-9]+(\.[0-9]+)?$/;
-// const imageFileRule = /\.(jpg|jpeg|png|gif|bmp)$/i;
+const bloodRule = /^\d{2,3}\/\d{2,3}$/;
+const temperatureRule = /^\d+(\.\d+)?$/;
 
 
 
@@ -105,3 +106,32 @@ export const recordSchema = (users) => {
     sex: yup.string().oneOf(["Male", "Female"], "Please select gender.").required("Gender required.")
   });
 };
+
+export const histoSchema = yup.object().shape({
+  patientObjectId: yup.string().required("Enter patient's Record ID from the table"),
+  bloodPressure: yup.string()
+    .matches(bloodRule, 'Format "XXX/YYY".')
+    .min(6, 'e.g 120/80')
+    .max(7, 'e.g 120/100')
+    .required('Blood pressure is required'),
+  temperature:yup.string()
+    .min(2, 'e.g 38')
+    .max(4, 'e.g 37.5')
+    .matches(temperatureRule, 'Must be a valid number')
+    .required('Temperature is required'),
+  allergies:yup.string()
+    .min(4, 'Must be atleast 4 letters.')
+    .max(50, 'Allergy name is too long, please enter a shorter name.')
+    .matches(alphaOnlyRule, 'Must only contain letters.')
+    .required('Allergy required, if none put None'),
+  diagnosis:yup.string()
+    .matches(alphaOnlyRule, 'Must only contain letters')
+    .min(3, 'Must be at least 3 letters.')
+    .max(50, 'Diagnostic name is too long, please enter a shorter name.')
+    .required('Diagnosis required, if none put None'),
+  surgeries:yup.string()
+    .min(4, 'Must be atleast 4 letters.')
+    .max(500,'Symptoms too long')
+    .matches(alphaOnlyRule, "Must only contain letters.")
+    .required('Symptoms required, if none put None')
+})
