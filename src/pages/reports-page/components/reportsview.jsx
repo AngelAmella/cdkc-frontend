@@ -360,8 +360,9 @@ const ReportsView = ({ tableData, selectedType, searchedQuery, generateButtonCli
         getAmPmSuffix={getAmPmSuffix}
       />
 
-      {/* Button to trigger printing */}
-      {generateButtonClicked && (
+        {generateButtonClicked && 
+        filteredTableData && 
+        filteredTableData.length > 0 && (
         <div className="reports-btn-pdf">
           <button id="generate-pdf-btn" onClick={handlePrint}>
             Print PDF

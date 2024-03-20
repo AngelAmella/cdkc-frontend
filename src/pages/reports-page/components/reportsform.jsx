@@ -90,7 +90,6 @@ export default function ReportsForm() {
             value={values.selectedType}
             onChange={handleTypeChange}
             onBlur={handleBlur}
-            className={errors.selectedType && touched.selectedType ? "rep-input-error" : ""}
           >
             <option value="" disabled>
               Service Params
@@ -107,7 +106,6 @@ export default function ReportsForm() {
           <label htmlFor="firstParams"></label>
           <input
             id="firstParams"
-            className={errors.firstParams && touched.firstParams ? "rep-input-error" : ""}
             type="text"
             value={values.firstParams}
             onChange={handleParamsChange}

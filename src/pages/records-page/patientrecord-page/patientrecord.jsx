@@ -6,6 +6,7 @@ import PatientRecordForm from "./components/patientrecordForm";
 import PatientRecordView from "./components/patientrecordView";
 import MedicalRecordForm from "./components/medicalrecordForm";
 
+
 export default function PatientRecord() {
     return (
         <>
@@ -19,6 +20,7 @@ export default function PatientRecord() {
                                 <PatientRecordForm />
                                 <MedicalRecordForm />
                             </div>
+                            
                             <div className="patientview"> {/* New container for PatientRecordView */}
                                 <PatientRecordView />
                             </div>

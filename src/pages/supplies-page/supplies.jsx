@@ -6,6 +6,7 @@ import SuppliesView from "./components/suppliesView";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 export default function Supplies() {
     return (
         <>
@@ -14,6 +15,7 @@ export default function Supplies() {
                 <div className="content">
                     <Sidebar />
                     <div className="supplies-container">
+                    
                         <div className="supplies-row">
                             <SuppliesForm className="supplies-form" />
                             <SuppliesView className="supplies-view" />

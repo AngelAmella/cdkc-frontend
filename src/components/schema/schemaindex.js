@@ -6,7 +6,7 @@ const userNameRules = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 const emailRule = /^[\w-.]+@(gmail|yahoo|outlook)\.(com)$/;
 const alphaOnlyRule = /^[A-Za-z\s]+$/; //allows spacing
 const numberAndDecimalRule = /^[0-9]+(\.[0-9]+)?$/;
-const imageFileRule = /\.(jpg|jpeg|png|gif|bmp)$/i;
+// const imageFileRule = /\.(jpg|jpeg|png|gif|bmp)$/i;
 
 
 
@@ -69,6 +69,12 @@ export const registerSchema = yup.object().shape({
     .required("Confirm Password required."),
 })
 
+// ADMIN
+export const reportSchema = yup.object().shape({
+  selectedType:yup.string().oneOf(["Appointments", "Records", "Inventory", "Users", "Orders"], 'Please select parameters.').required("Please select Parameters"),
+  firstParams:yup.string().max(35, 'Maximum Characters entered').required("Query required."),
+})
+
 export const suppliesSchema = yup.object().shape({
 
   itemName: yup.string().max(30, "Maximum characters reached.").min(10, "Product name must be at least 10 minimum.").matches(alphaOnlyRule, "Product Name must only contain letters.").required('Product Name required.'),
@@ -85,12 +91,17 @@ export const suppliesSchema = yup.object().shape({
     return selectedDate > twoWeeksFromNow;
   }),
   itemImg: yup.mixed().test('fileType', 'Image file required', (value) => {
-    if (!value) return false; // Check if file exists
+    if (!value) return false; 
     return value instanceof File;
   })
 })
 
-export const reportSchema = yup.object().shape({
-  selectedType:yup.string().oneOf(["Appointments", "Records", "Inventory", "Users", "Orders"], 'Please select parameters.').required("Please select Parameters"),
-  firstParams:yup.string().max(35, 'Maximum Characters entered').required("Query required."),
-})
+export const recordSchema = (users) => {
+  return yup.object().shape({
+    patientName: yup.string().oneOf(users.map(user => user.UserName), 'Please select User.').required('Please select User.'),
+    weight: yup.string().min(4, 'Must be at least 10kg').max(5, 'e.g 50kg or 100kg').required("Weight required"),
+    height: yup.string().min(4, 'e.g 4\'11"').max(5, 'e.g 4\'11"').required("Height required"),
+    age: yup.string().min(2, "Must be at least 18 years old").max(3, "Wow, hundreds?").required("Age required"),
+    sex: yup.string().oneOf(["Male", "Female"], "Please select gender.").required("Gender required.")
+  });
+};
