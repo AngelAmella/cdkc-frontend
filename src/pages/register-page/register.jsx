@@ -94,7 +94,7 @@ export default function Register() {
             <div className="scroll-form">
             <form onSubmit={handleSubmit} autoComplete='off' id='form-reg'>
               <div className="input-div-reg">
-              <label htmlFor='FirstName'>First Name <span>*</span></label>
+              <label htmlFor='FirstName'>First Name <span className="asterisk">*</span></label>
               <input
               value={values.FirstName}
               onChange={handleChange}
@@ -107,7 +107,7 @@ export default function Register() {
               </div>
               <p className='errors-p'>{errors.FirstName}</p>
              <div className="input-div-reg">
-              <label htmlFor='MiddleName'>Middle Name <span>*</span></label>
+              <label htmlFor='MiddleName'>Middle Name <span className="asterisk">*</span></label>
               <input
               value={values.MiddleName}
               onChange={handleChange}
@@ -120,7 +120,7 @@ export default function Register() {
               </div>
               <p className='errors-p'>{errors.MiddleName}</p>
               <div className="input-div-reg">
-              <label htmlFor='LastName'>Last Name <span>*</span></label>
+              <label htmlFor='LastName'>Last Name <span className="asterisk">*</span></label>
               <input
               value={values.LastName}
               onChange={handleChange}
@@ -133,7 +133,7 @@ export default function Register() {
               </div>
                <p className='errors-p'>{errors.LastName}</p>
               <div className="input-div-reg">
-              <label htmlFor='birthday'>Birthday <span >*</span></label>
+              <label htmlFor='birthday'>Birthday <span className="asterisk">*</span></label>
               <input
                 id="birthday"
                 type="date"
@@ -146,7 +146,7 @@ export default function Register() {
               </div>
               <p className='errors-p'>{errors.birthday}</p>
               <div className="input-div-reg">
-              <label htmlFor='sex'>Sex <span>*</span></label>
+              <label htmlFor='sex'>Sex <span className="asterisk">*</span></label>
                   <select
                     id="sex"
                     className="user-input"
@@ -164,7 +164,7 @@ export default function Register() {
                   </div>
                   <p className='errors-p'>{errors.sex}</p>
               <div className="input-div-reg">
-              <label htmlFor='contactNum'>Contact No.<span>*</span></label>
+              <label htmlFor='contactNum'>Contact No.<span className="asterisk">*</span></label>
                   <input
                     id="contactNum"
                     placeholder=" Contact No."
