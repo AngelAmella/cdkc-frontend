@@ -126,19 +126,32 @@ export default function SuppliesView() {
   const handleSaveClick = () => {
     const confirmSave = window.confirm("Do you want to save your changes?");
     if (confirmSave) {
-      const editedItemWithFormattedDate = {
-        ...editedItem,
-        expireDate: editedDate,
-      };
+      const formData = new FormData();
+  
+      // Append edited item data to the form data
+      formData.append('itemName', editedItem.itemName);
+      formData.append('itemDescription', editedItem.itemDescription);
+      formData.append('stocksAvailable', editedItem.stocksAvailable);
+      formData.append('itemPrice', editedItem.itemPrice);
+      formData.append('expireDate', editedDate);
+  
+      // Append new image file if available
+      if (editedItem.newImage) {
+        formData.append('itemImg', editedItem.newImage);
+      }
   
       axios
-        .put(`http://localhost:5000/api/inventory/${editedItem._id}`, editedItemWithFormattedDate)
+        .put(`http://localhost:5000/api/inventory/${editedItem._id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
         .then((result) => {
           setEditedItem(null);
   
           setData((prevData) => {
             const updatedData = prevData.map((item) =>
-              item._id === editedItem._id ? editedItemWithFormattedDate : item
+              item._id === editedItem._id ? editedItem : item
             );
             return updatedData;
           });
@@ -149,7 +162,7 @@ export default function SuppliesView() {
           console.error(err);
         });
     }
-  };  
+  };
 
   const handleCancelClick = () => {
     setEditedItem(null);
@@ -171,11 +184,98 @@ export default function SuppliesView() {
 
   const handleEditChange = (e, item) => {
     const { name, value } = e.target;
-
-    if (name === "expireDate") {
-      setEditedDate(value);
+  
+    // Perform validation to allow only letters
+    if (name === "itemName") {
+      const onlyLetters = /^[a-zA-Z\s]*$/;
+      if (!value.match(onlyLetters)) {
+        // Display an alert message for invalid input
+        alert(`Invalid input for Item Name.`);
+        return; // Prevent updating state with invalid input
+      }
+      
+      // Check if the length exceeds 30 characters
+      if (value.length > 30) {
+        alert("Item Name cannot exceed 30 characters.");
+        return; // Prevent updating state with invalid input
+      }
     }
 
+    // Perform validation to allow only letters and "/" for itemDescription
+    if (name === "itemDescription") {
+      const onlyLettersAndSlash = /^[a-zA-Z/]*$/;
+      if (!value.match(onlyLettersAndSlash)) {
+        // Display an alert message for invalid input
+        alert(`Invalid input for Description.`);
+        return; // Prevent updating state with invalid input
+      }
+      
+      // Check if the length exceeds 30 characters
+      if (value.length > 30) {
+        alert("Description cannot exceed 30 characters.");
+        return; // Prevent updating state with invalid input
+      }
+    }
+
+      // Perform validation for stocksAvailable field to allow only numbers and limit length to 5
+      if (name === "stocksAvailable") {
+        const onlyNumbers = /^\d*$/;
+        if (!value.match(onlyNumbers) && value !== "") {
+          // Display an alert message for invalid input
+          alert(`Invalid input for Availability. Only numbers are allowed.`);
+          return; // Prevent updating state with invalid input
+        }
+
+        // Limit the length to 5 characters
+        if (value.length > 5) {
+          alert("Stocks Available cannot exceed 5 characters.");
+          return; // Prevent updating state with invalid input
+        }
+      }
+
+      // Perform validation for itemPrice field to allow only numbers and limit length to 10
+      if (name === "itemPrice") {
+        const onlyNumbersAndDecimal = /^\d*\.?\d*$/;
+        if (!value.match(onlyNumbersAndDecimal) && value !== "") {
+          // Display an alert message for invalid input
+          alert(`Invalid input for Item Price. Only numbers and the decimal point "." are allowed.`);
+          return; // Prevent updating state with invalid input
+        }
+
+        // Limit the length to 10 characters
+        if (value.length > 10) {
+          alert("Item Price cannot exceed 10 characters.");
+          return; // Prevent updating state with invalid input
+        }
+      }
+  
+      if (name === "expireDate") {
+        // Ensure that the input does not exceed 10 characters (MM/DD/YYYY format)
+        if (value.length > 10) {
+            return;
+        }
+        // Only allow numbers and '/'
+        if (!/^\d{0,2}\/?\d{0,2}\/?\d{0,4}$/.test(value)) {
+            alert('Invalid date format');
+            return; // Exit the function if the input is invalid
+        } else {
+            // Split the date components
+            const [month, day, year] = value.split('/');
+            // Check if month is within range (1-12) and day is within range (1-31)
+            if (parseInt(month) > 12 || parseInt(day) > 31) {
+                alert('Invalid date format');
+                return; // Exit the function if the input is invalid
+            }
+            // Check if the year is 2023 or earlier
+            if (parseInt(year) <= 2023) {
+                alert('Invalid year');
+                return; // Exit the function if the year is invalid
+            }
+        }
+        setEditedDate(value);
+    }
+    
+  
     setEditedItem({
       ...editedItem,
       [name]: value,
@@ -287,23 +387,23 @@ export default function SuppliesView() {
                     )}
                   </td>
                   <td>
-                    {editedItem && editedItem._id === item._id ? (
-                      <div className="file-input-container">
-                        <input
-                          id='img-upload-view'
-                          type="file"
-                          onChange={(e) => handleEditChange(e, item)}
-                          accept="image/*"
-                          className="supplies-change supplies-change-input"
-                        />
-                      </div>
-                    ) : (
-                      <img
-                        src={`http://localhost:5000/${item.itemImg}`}
-                        alt={item.itemName}
-                        style={{ maxWidth: "100px", maxHeight: "100px" }}
+                  {editedItem && editedItem._id === item._id ? (
+                    <div className="file-input-container">
+                      <input
+                        id='img-upload-view'
+                        type="file"
+                        onChange={(e) => handleEditChange(e, item)}
+                        accept="image/*"
+                        className="supplies-change supplies-change-input"
                       />
-                    )}
+                    </div>
+                  ) : (
+                    <img
+                      src={`http://localhost:5000/${editedItem && editedItem.newImage ? URL.createObjectURL(editedItem.newImage) : item.itemImg}`}
+                      alt={item.itemName}
+                      style={{ maxWidth: "100px", maxHeight: "100px" }}
+                    />
+                  )}
                   </td>
                   <td>
                     {editedItem && editedItem._id === item._id ? (

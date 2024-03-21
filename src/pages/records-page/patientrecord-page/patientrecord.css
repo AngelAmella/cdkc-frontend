@@ -513,5 +513,9 @@ thead {
   font-size: 10px;
   margin:0;
 }
+.actionButtons-record{
+  display:flex;
+  gap:2.5px;
+}
 
 }

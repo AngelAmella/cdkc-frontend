@@ -61,7 +61,8 @@
 }
 
 #inventory-header {
-  font-size: 25px;
+  margin-top: 5px;
+  font-size: 18px;
 }
   
 .table th,
@@ -149,7 +150,8 @@ thead {
 
 .actionButtons {
   display: flex;
-  gap: 5px; /* Adjust the gap as needed */
+  gap: 2.5px; /* Adjust the gap as needed */
+  margin-left: -15px;
 }
 
 #supplies-edit-btn {
@@ -169,6 +171,7 @@ thead {
 #supplies-delete-btn {
   background-color: #FF0000;
   margin-top: 10px;
+  padding: 8px 10px;
 }
 
 #supplies-delete-btn:hover {
@@ -305,6 +308,7 @@ thead {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 90px;
   }
 
  
@@ -339,5 +343,26 @@ thead {
     margin-left: -10px;
     margin-right: 0;
     width: 200%;
+  }
+  .file-input-container input[type="file"] {
+    margin-left: -10px;
+    width: 50%;
+    height: 100%;
+    cursor: pointer;
+    border: none;
+  }
+  
+  #img-upload-view.supplies-change.supplies-change-input {
+    font-size: 12px;
+  }
+
+  #img-upload-view {
+    border-style: none;
+  }
+  .supplies-change {
+    font-size: 12px;
+  }
+  .supplies-change.supplies-change.supplies-change-input {
+    width: 100px;
   }
 }

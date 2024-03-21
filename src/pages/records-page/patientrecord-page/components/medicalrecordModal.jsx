@@ -4,9 +4,8 @@ import { useParams } from "react-router-dom";
 
 export default function MedicalRecordModal({ patientId, onClose }) {
   const [data, setData] = useState([]);
-  const [editingRecords, setEditingRecords] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const [unsavedChanges, setUnsavedChanges] = useState({});
+  const [editingRecord, setEditingRecord] = useState(null);
 
   const id = patientId;
 
@@ -21,49 +20,121 @@ export default function MedicalRecordModal({ patientId, onClose }) {
       });
   }, [id]);
 
-  const handleEditClick = (recordId) => {
+  const handleEditClick = (record) => {
     setIsEditing(true);
-    setEditingRecords((prev) => ({ ...prev, [recordId]: true }));
+    setEditingRecord(record);
   };
 
-  const handleSaveClick = (recordId) => {
-    const editingRecordIndex = data.findIndex((record) => record._id === recordId);
-    const editedRecord = { ...data[editingRecordIndex], ...unsavedChanges[recordId] };
-    
-    const confirmation = window.confirm("Are you sure you want to save your changes?");
-    if (confirmation) {
-      axios
-        .put(`http://localhost:5000/api/records/medical-history/${recordId}`, editedRecord)
-        .then((result) => {
-          const newData = [...data];
-          newData[editingRecordIndex] = editedRecord;
-          setData(newData);
-          setIsEditing(false);
-          setEditingRecords((prev) => ({ ...prev, [recordId]: false }));
-          setUnsavedChanges((prev) => ({ ...prev, [recordId]: undefined }));
-          alert("Changes saved successfully.");
-        })
-        .catch((err) => {
-          console.error(err);
+  const handleSaveClick = () => {
+    const { _id, ...updatedData } = editingRecord;
+    axios
+      .put(`http://localhost:5000/api/records/medical-history/${_id}`, updatedData)
+      .then((result) => {
+        setData((prevData) => {
+          const updatedData = prevData.map((record) =>
+            record._id === _id ? { ...record, ...editingRecord } : record
+          );
+          return updatedData;
         });
-    }
+        setIsEditing(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
-  
-  
 
-  const handleCancelClick = (recordId) => {
-    // Reset the editing state
+  const handleCancelClick = () => {
     setIsEditing(false);
-    setEditingRecords((prev) => ({ ...prev, [recordId]: false }));
-    // Discard unsaved changes
-    setUnsavedChanges((prev) => ({ ...prev, [recordId]: undefined }));
   };
 
-  const handleInputChange = (e, recordId) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUnsavedChanges((prev) => ({
-      ...prev,
-      [recordId]: { ...prev[recordId], [name]: value }
+  
+    // Check if the field is "allergies" and if the value contains only letters
+    if (name === "allergies") {
+      // Check if the length of the value exceeds 50 characters
+      if (value.length > 50) {
+        // Display an alert message
+        alert("Allergies should not exceed 50 characters.");
+        // Exit the function without updating the state
+        return;
+      }
+  
+      // Check if the value contains only letters and comma
+      if (!/^[a-zA-Z,\s]*$/.test(value)) {
+        // Display an alert message
+        alert("Invalid input for Allergies."); //Please enter only letters in the allergies field.
+        // Exit the function without updating the state
+        return;
+      }
+    }
+
+    // Validation for "Diagnosis" field
+    if (name === "diagnosis") {
+      if (value.length > 50) {
+        alert("Diagnosis should exceed 50 characters.");
+        return;
+      }
+
+      if (!/^[a-zA-Z,\s]*$/.test(value)) {
+        alert("Invalid input for Diagnosis."); //Please enter only letters in the diagnosis field.
+        return;
+      }
+    }
+
+    // Validation for "Blood Pressure" field
+    if (name === "bloodPressure") {
+      // Allow only numbers and the character '/'
+      if (!/^[0-9/]*$/.test(value)) {
+        alert("Invalid input for Blood Pressure."); //Please enter only numbers and the character '/' in the blood pressure field.
+        return;
+      }
+
+      // Check if the length of the value exceeds 7 characters
+      if (value.length > 7) {
+        // Display an alert message
+        alert("Blood Pressure should not exceed 7 characters.");
+        // Exit the function without updating the state
+        return;
+      }
+    }
+
+    // Validation for "Temperature" field
+    if (name === "temperature") {
+      // Allow only numbers, the character '.', 'C', and 'F'
+      if (!/^[0-9.CcFf]*$/.test(value)) {
+        alert("Invalid input for Temperature."); //Please enter only numbers, '.', 'C', or 'F' in the temperature field.
+        return;
+      }
+
+      // Check if the length of the value exceeds 5 characters
+      if (value.length > 5) {
+        // Display an alert message
+        alert("Temperature should exceed 5 characters.");
+        // Exit the function without updating the state
+        return;
+      }
+    }
+
+    // Validation for "Surgeries" field
+    if (name === "surgeries") {
+      // Allow only letters and commas
+      if (!/^[a-zA-Z,\s]*$/.test(value)) {
+        alert("Invalid input for Symptoms."); //Please enter only letters and commas in the surgeries field.
+        return;
+      }
+
+      // Check if the length of the value exceeds 100 characters
+      if (value.length > 500) {
+        alert("Surgeries should not exceed 500 characters.");
+        return;
+      }
+    }
+    
+  
+    setEditingRecord((prevEditingRecord) => ({
+      ...prevEditingRecord,
+      [name]: value,
     }));
   };
 
@@ -77,7 +148,7 @@ export default function MedicalRecordModal({ patientId, onClose }) {
               <th>Diagnosis</th>
               <th>Blood Pressure</th>
               <th>Temperature</th>
-              <th>Symptoms</th> {/*SURGERIES TALAGA TO*/}
+              <th>Symptoms</th> {/*replace of surgery */}
               <th>Action</th>
             </tr>
           </thead>
@@ -85,91 +156,82 @@ export default function MedicalRecordModal({ patientId, onClose }) {
             {data.map((history) => (
               <tr key={history._id}>
                 <td>
-                  {editingRecords[history._id] ? (
+                  {isEditing ? (
                     <input
                       type="text"
                       name="allergies"
                       className="modal-change"
-                      value={unsavedChanges[history._id]?.allergies || history.allergies}
-                      onChange={(e) => handleInputChange(e, history._id)}
+                      value={editingRecord.allergies}
+                      onChange={handleInputChange}
                     />
                   ) : (
                     history.allergies
                   )}
                 </td>
                 <td>
-                  {editingRecords[history._id] ? (
+                  {isEditing ? (
                     <input
                       type="text"
                       name="diagnosis"
                       className="modal-change"
-                      value={unsavedChanges[history._id]?.diagnosis || history.diagnosis}
-                      onChange={(e) => handleInputChange(e, history._id)}
+                      value={editingRecord.diagnosis}
+                      onChange={handleInputChange}
                     />
                   ) : (
                     history.diagnosis
                   )}
                 </td>
                 <td>
-                  {editingRecords[history._id] ? (
+                  {isEditing ? (
                     <input
                       type="text"
                       name="bloodPressure"
                       className="modal-change"
-                      value={unsavedChanges[history._id]?.bloodPressure || history.bloodPressure}
-                      onChange={(e) => handleInputChange(e, history._id)}
+                      value={editingRecord.bloodPressure}
+                      onChange={handleInputChange}
                     />
                   ) : (
                     history.bloodPressure
                   )}
                 </td>
                 <td>
-                  {editingRecords[history._id] ? (
+                  {isEditing ? (
                     <input
                       type="text"
                       name="temperature"
                       className="modal-change"
-                      value={unsavedChanges[history._id]?.temperature || history.temperature}
-                      onChange={(e) => handleInputChange(e, history._id)}
+                      value={editingRecord.temperature}
+                      onChange={handleInputChange}
                     />
                   ) : (
                     history.temperature
                   )}
                 </td>
                 <td>
-                  {editingRecords[history._id] ? (
+                  {isEditing ? (
                     <input
                       type="text"
                       name="surgeries"
                       className="modal-change"
-                      value={unsavedChanges[history._id]?.surgeries || history.surgeries}
-                      onChange={(e) => handleInputChange(e, history._id)}
+                      value={editingRecord.surgeries}
+                      onChange={handleInputChange}
                     />
                   ) : (
                     history.surgeries
                   )}
                 </td>
                 <td>
-                  {editingRecords[history._id] ? (
+                  {isEditing ? (
                     <>
-                      <button
-                        className="savebtn-modal"
-                        onClick={() => handleSaveClick(history._id)}
-                      >
+                      <button className="savebtn-modal" onClick={handleSaveClick}>
                         Save
                       </button>
-                      <button
-                        className="cancelbtn-modal"
-                        onClick={() => handleCancelClick(history._id)}
-                      >
+                      <button className="cancelbtn-modal" onClick={handleCancelClick}>
                         Cancel
                       </button>
                     </>
                   ) : (
-                    <button
-                      className="editbtn-modal"
-                      onClick={() => handleEditClick(history._id)}
-                    >
+                    <button className="editbtn-modal" onClick={() => handleEditClick(history)}>
                       Edit
                     </button>
                   )}

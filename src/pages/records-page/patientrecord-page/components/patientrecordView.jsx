@@ -75,6 +75,99 @@ export default function PatientRecordView() {
 
   const handleEditChange = (e, record) => {
     const { name, value } = e.target;
+  
+    // Check if the length of the value exceeds 20 characters
+    // if (value.length > 20) {
+    //   alert('Input should not exceed 20 characters.');
+    //   return;
+    // }
+
+    // Regular expression to match only letters and numbers
+    const validNameRegex = /^[a-zA-Z0-9\s]*$/;
+  
+    // Regular expression to match numbers and specified characters for height
+    const validHeightRegex = /^[\d'" ]*$/;
+  
+    // Regular expression to match numbers and specified characters for weight
+    const validWeightRegex = /^[\dkglbs]*$/i;
+  
+    // Regular expression to match only numbers for age
+    const validAgeRegex = /^\d*$/;
+  
+    // Regular expression to match only specified letters for sex
+    const validSexRegex = /^[female]*$/i;
+
+    // Check if the entered value matches the valid name pattern
+    if (name === 'patientName') {
+      if (!validNameRegex.test(value)) {
+        // Display an error message or handle invalid input for patient name
+        alert('Invalid input for Patient Name.'); // Only letters and numbers are allowed.
+        return;
+      }
+      if (value.length > 20) {
+        // Display an error message or handle invalid input for patient name length
+        alert('Patient Name should not exceed 20 characters.');
+        return;
+      }
+    }
+
+    // Check if the entered value matches the valid weight pattern
+    if (name === 'weight') {
+      if (!validWeightRegex.test(value)) {
+        // Display an error message or handle invalid input for weight
+        alert('Invalid input for weight. Only (e.g., 70kg, 150lbs) are allowed.'); //Only numbers and specified characters (e.g., 70kg, 150lbs) are allowed.
+        return;
+      }
+      if (value.length > 6) {
+        // Display an error message or handle invalid input for weight length
+        alert('Weight should not exceed 6 characters.');
+        return;
+      }
+    }
+
+    // Check if the entered value matches the valid height pattern
+    if (name === 'height') {
+      if (!validHeightRegex.test(value)) {
+        // Display an error message or handle invalid input for height
+        alert('Invalid input for height. Only (e.g., 5\'8", 6\'2") are allowed.'); //Only numbers and specified characters (e.g., 5\'8", 6\'2") are allowed.
+        return;
+      }
+      if (value.length > 5) {
+        // Display an error message or handle invalid input for height length
+        alert('Height should not exceed 5 characters.');
+        return;
+      }
+    }
+  
+    // Check if the entered value matches the valid age pattern
+    if (name === 'age') {
+      if (!validAgeRegex.test(value)) {
+        // Display an error message or handle invalid input for age
+        alert('Invalid input for age.'); //Only numbers are allowed.
+        return;
+      }
+      if (value.length > 3) {
+        // Display an error message or handle invalid input for age length
+        alert('Age should not exceed 3 characters.');
+        return;
+      }
+    }
+  
+    // Check if the entered value matches the valid sex pattern
+    if (name === 'sex') {
+      if (!validSexRegex.test(value)) {
+        // Display an error message or handle invalid input for sex
+        alert('Invalid input for sex.'); //Only "female" is allowed.
+        return;
+      }
+      if (value.length > 6) {
+        // Display an error message or handle invalid input for sex length
+        alert('Sex should not exceed 6 characters.');
+        return;
+      }
+    }
+  
+    // Update state with the edited value
     setEditingRecord((prevEditingRecord) => ({
       ...prevEditingRecord,
       [name]: value,
@@ -205,7 +298,7 @@ export default function PatientRecordView() {
                     ) : null}
                     {editingRecord && editingRecord._id === record._id ? (
                       <>
-                        <div className="actionButtons">
+                        <div className="actionButtons-record">
                           <button
                             className="savebtn-record"
                             onClick={handleSaveClick}
@@ -213,7 +306,7 @@ export default function PatientRecordView() {
                             Save
                           </button>
                         </div>
-                        <div className="actionButtons">
+                        <div className="actionButtons-record">
                           <button
                             className="cancelbtn-record"
                             onClick={handleCancelClick}

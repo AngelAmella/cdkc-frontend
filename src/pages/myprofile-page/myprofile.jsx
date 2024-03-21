@@ -83,18 +83,146 @@ export default function MyProfile() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    // Check if the input is empty
+    if (value === '') {
+      setUser({
+        ...user,
+        [name]: value,
+      });
+      return; // Exit the function early if the input is empty
+    }
+  
     let updatedValue = value;
-
-    // If changing the birthday field, ensure it's in the "MM/DD/YYYY" format
-    if (name === 'birthday') {
-      // You can add your custom validation logic here
-      // For simplicity, let's assume a basic check for "MM/DD/YYYY" format
-      if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(value)) {
-        // If the format is incorrect, you can handle it accordingly
-        console.log('Invalid date format');
-        updatedValue = ''; // or any default value you prefer
+  
+    // Custom validation for first, middle, and last names to accept only letters
+    if (["FirstName"].includes(name)) {
+      if (!/^[A-Za-z\s]+$/.test(value)) {
+        alert(`Invalid input for First Name.`); // Only letters are allowed
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 20) {
+        alert(`First Name should not exceed 20 characters.`);
+        updatedValue = value.substring(0, 20); // truncate the value to 20 characters
       }
     }
+
+    if (["MiddleName"].includes(name)) {
+      if (!/^[A-Za-z\s]+$/.test(value)) {
+        alert(`Invalid input for Middle Name.`); // Only letters are allowed
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 20) {
+        alert(`Middle Name should not exceed 20 characters.`);
+        updatedValue = value.substring(0, 20); // truncate the value to 20 characters
+      }
+    }
+
+    if (["LastName"].includes(name)) {
+      if (!/^[A-Za-z\s]+$/.test(value)) {
+        alert(`Invalid input for Last Name.`); // Only letters are allowed
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 20) {
+        alert(`Last Name should not exceed 20 characters.`);
+        updatedValue = value.substring(0, 20); // truncate the value to 20 characters
+      }
+    }
+  
+    // Validation for contact number to accept only numbers and limit to 11 characters
+    if (name === 'contactNum') {
+      if (!/^\d+$/.test(value)) {
+        alert(`Invalid input for contact number`);
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 11) {
+        alert('Contact number should not exceed 11 digits.');
+        updatedValue = value.substring(0, 11); // truncate the value to 11 characters
+      }
+    }
+  
+    // Validation for birthday to accept only numbers and strict format (MM/DD/YYYY)
+    if (name === 'birthday') {
+      // Ensure that the input does not exceed 10 characters (MM/DD/YYYY format)
+      if (value.length > 10) {
+        return;
+      }
+      // Only allow numbers and '/'
+      if (!/^\d{0,2}\/?\d{0,2}\/?\d{0,4}$/.test(value)) {
+        alert('Invalid date format');
+        return; // Exit the function if the input is invalid
+      } else {
+        // Split the date components
+        const [month, day, year] = value.split('/');
+        // Check if month is within range (1-12) and day is within range (1-31)
+        if (parseInt(month) > 12 || parseInt(day) > 31) {
+          alert('Invalid date format');
+          return; // Exit the function if the input is invalid
+        }
+      }
+    }
+  
+    // Ensure that the "House No." input does not exceed 5 characters and contains only numbers
+    if (name === 'houseNum') {
+      if (!/^\d+$/.test(value)) {
+        alert('Invalid input for House No.'); // Only numbers are allowed.
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 5) {
+        alert('House No. should not exceed 5 characters.');
+        updatedValue = value.substring(0, 5); // truncate the value to 5 characters
+      }
+    }
+  
+    // Validate "Street" field to allow only numbers, letters, and periods, and limit to 20 characters
+    if (name === 'street') {
+      if (!/^[A-Za-z0-9. ]+$/.test(value)) {
+        alert('Invalid input for Street.'); // Only letters, numbers, and periods are allowed.
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 20) {
+        alert('Street should not exceed 20 characters.');
+        updatedValue = value.substring(0, 20); // truncate the value to 20 characters
+      }
+    }
+
+    // Validate brgy, city, and prov fields to allow only letters and limit to 20 characters
+    if (["brgy"].includes(name)) {
+      if (!/^[A-Za-z\s]+$/.test(value)) {
+        alert(`Invalid input for Barangay.`); // Only letters are allowed
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 20) {
+        alert(`Barangay should not exceed 20 characters.`);
+        updatedValue = value.substring(0, 20); // truncate the value to 20 characters
+      }
+    }
+
+    if (["city"].includes(name)) {
+      if (!/^[A-Za-z\s]+$/.test(value)) {
+        alert(`Invalid input for City/Municipality.`); // Only letters are allowed
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 20) {
+        alert(`City/Municipality should not exceed 20 characters.`);
+        updatedValue = value.substring(0, 20); // truncate the value to 20 characters
+      }
+    }
+
+    if (["prov"].includes(name)) {
+      if (!/^[A-Za-z\s]+$/.test(value)) {
+        alert(`Invalid input for Province.`); // Only letters are allowed
+        return; // Exit the function if the input is invalid
+      } else if (value.length > 20) {
+        alert(`Provinceshould not exceed 20 characters.`);
+        updatedValue = value.substring(0, 20); // truncate the value to 20 characters
+      }
+    }
+  
+    // Validate email field to ensure maximum length of 40 characters
+    if (name === 'email') {
+      if (value.length > 40) {
+        alert('Email should not exceed 40 characters.');
+        updatedValue = value.substring(0, 40); // truncate the value to 40 characters
+      }
+    
+    setUser({
+      ...user,
+      [name]: updatedValue,
+    });
+  }
 
     setUser({
       ...user,

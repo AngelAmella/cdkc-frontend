@@ -1,211 +1,255 @@
 *{
-   font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .announcement-container-amn{
-   /* background-color: white;
-   width: 89vw;
-   height: 89vh;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   border-radius: 20px; */
-   background-color: white;
-   width: 93vw;
-   height: 89vh;
-   border-radius: 20px;
-   margin-left: 20px;
+  /* background-color: white;
+  width: 89vw;
+  height: 89vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px; */
+  background-color: white;
+  width: 93vw;
+  height: 89vh;
+  border-radius: 20px;
+  margin-left: 20px;
 }
 
 #announce-img-amn{
-   height: 60vh;
-   width: auto;
+  height: 60vh;
+  width: auto;
 }
 
 .announce-content-amn{
-   display: flex;
-   flex-direction: row;
-   justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .announce-page-amn{
-   display: flex;
-   flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-announcement-adm {
-   height: 170px;
-   margin-left: 50px;
-   margin-bottom: 10px;
-   display: flex;
-   background-color: rgb(243, 243, 243);
-   width: fit-content;
-   padding: 20px;
-   border-radius: 20px;
-   gap: 1.5rem;
+  height: 170px;
+  margin-left: 50px;
+  margin-bottom: 10px;
+  display: flex;
+  background-color: rgb(243, 243, 243);
+  width: fit-content;
+  padding: 20px;
+  border-radius: 20px;
+  gap: 1.5rem;
 }
 
 #announce-adm-header {
-   font-size: 25px;
+  font-size: 25px;
 }
 
 .input-announcement {
-   margin-top: 10px;
-   border-radius: 10px; 
+  margin-top: 10px;
+  border-radius: 10px; 
 }
 
 #img-upload-announce-adm{
-   margin-top: -5px;
-   border: none;
-   border-radius: 0;
+  margin-top: -5px;
+  border: none;
+  border-radius: 0;
 }
 
 
 /* .grid-container{
-   background-color: rgb(194, 177, 177);
+  background-color: rgb(194, 177, 177);
 } */
 
 .grid-scroll-container {
-  overflow-y: auto;
-  max-height: 500px; /* Set the maximum height as per your requirement */
+ overflow-y: auto;
+ max-height: 500px; /* Set the maximum height as per your requirement */
 }
 
 .grid-container {
-   margin-left: 500px;
-   margin-top: -220px;
-   background-color: rgb(243, 243, 243);
-   display: grid;
-   grid-template-columns: repeat(1, 1fr); /* Update this line */
-   width: 69%;
-   height: 80%;
-   gap: 20px;
-   border-radius: 20px;
-   overflow: scroll;
-   overflow-x: hidden;
- }
+  margin-left: 500px;
+  margin-top: -220px;
+  background-color: rgb(243, 243, 243);
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* Update this line */
+  width: 69%;
+  height: 80%;
+  gap: 20px;
+  border-radius: 20px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
 
 .grid-item {
-  border: 0px solid #ccc;
-  padding: 15px;
-  text-align: center;
-  position: relative;
+ border: 0px solid #ccc;
+ padding: 15px;
+ text-align: center;
+ position: relative;
 }
 
 .grid-item img {
-   display: block;
-   margin: 0 auto;
-   cursor: pointer;
-   transition: transform 0.3s ease-in-out;
- }
- 
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
 
 .grid-item img.announcement-image-0 {
-   width: 400px;
-   height: auto;
- }
- 
- .grid-item img.announcement-image-1 {
-   width: 700px;
-   height: auto;
- }
- 
- .grid-item img.announcement-image-2 {
-   width: 400px;
-   height: auto;
- }
-
- .grid-item img.announcement-image-3 {
-   width: 400px;
-   height: auto;
- }
-/* .grid-item img:nth-child(odd) {
   width: 400px;
-  height: 600px;
+  height: auto;
+}
+
+.grid-item img.announcement-image-1 {
+  width: 700px;
+  height: auto;
+}
+
+.grid-item img.announcement-image-2 {
+  width: 400px;
+  height: auto;
+}
+
+.grid-item img.announcement-image-3 {
+  width: 400px;
+  height: auto;
+}
+/* .grid-item img:nth-child(odd) {
+ width: 400px;
+ height: 600px;
 }
 
 .grid-item img:nth-child(even) {
-  width: 300px;
+ width: 300px;
 } */
 
 h6 {
-   margin-top: 10px;
-   margin-bottom: 20px;
-   font-size: 30px;
-   font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .modal-overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0, 0, 0, 0.5);
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   z-index: 1000;
- }
- 
- .modal-container.announcement-modal-0 {
-   max-width: 40%;
-   max-height: 90%;
-   overflow: auto;
- }
- 
- .modal-container.announcement-modal-1 {
-   max-width: 60%;
-   max-height: 80%;
- }
- 
- .modal-container.announcement-modal-2 {
-   max-width: 40%;
-   max-height: 90%;
-   overflow: auto;
- }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
- .modal-container.announcement-modal-3 {
-   max-width: 40%;
-   max-height: 90%;
- }
- 
- .modal-container img {
-   width: 100%;
-   height: 100%;
-   object-fit: contain;
- }
- 
- /* Add this style to hide the scrollbar when the modal is open */
- body.modal-open {
-   overflow: hidden;
- }
+.modal-container.announcement-modal-0 {
+  max-width: 40%;
+  max-height: 90%;
+  overflow: auto;
+}
 
- #delete-btn-announcement-adm {
-   margin-top: 20px;
-   background-color: red;
- }
- 
- #delete-btn-announcement-adm:hover {
-   filter: drop-shadow(0 0 0.2em #FF0000);
+.modal-container.announcement-modal-1 {
+  max-width: 60%;
+  max-height: 80%;
+}
+
+.modal-container.announcement-modal-2 {
+  max-width: 40%;
+  max-height: 90%;
+  overflow: auto;
+}
+
+.modal-container.announcement-modal-3 {
+  max-width: 40%;
+  max-height: 90%;
+}
+
+.modal-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Add this style to hide the scrollbar when the modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+#delete-btn-announcement-adm {
+  margin-top: 20px;
+  background-color: red;
+}
+
+#delete-btn-announcement-adm:hover {
+  filter: drop-shadow(0 0 0.2em #FF0000);
 }
 
 @media screen and (max-width:1366px) {
-  .announcement-container-amn{
-    width: 86vw; /*changed*/
-        height: 565px;
-        margin-left: 160px;
- }
- .grid-container {
-  width: 730px;
- }
- .input-announcement {
-  font-size: 12px;
+ .announcement-container-amn{
+   width: 86vw; /*changed*/
+   height: 565px;
+   margin-left: 160px;
 }
+
+.grid-container {
+   margin-left: 350px;
+   width: 785px;
+}
+
+.input-announcement {
+   font-size: 12px;
+}
+
 .add-announcement-adm{
-  height: 150px;
-  margin-left: 90px;
-  margin-bottom: 28px;
+ height: 150px;
+ margin-left: 30px;
+ margin-bottom: 28px;
+}
+
+h6 {
+ font-size: 25px;
+}
+
+.grid-item img.announcement-image-0 {
+ width: 300px;
+ height: auto;
+}
+
+.grid-item img.announcement-image-1 {
+ width: 500px;
+ height: auto;
+}
+
+.grid-item img.announcement-image-2 {
+ width: 300px;
+ height: auto;
+}
+
+.grid-item img.announcement-image-3 {
+ width: 300px;
+ height: auto;
+}
+
+#delete-btn-announcement-adm {
+ font-size: 14px;
+ height: 40px;
+ width: 80px;
+}
+
+#bulletin-header{
+ font-size: 20px;
+ color: lightslategray;
+ margin: 0;
+ font-weight: 400;
+ margin-right: -32px;
+ margin-top: 20px;
+ margin-bottom: 20px;
 }
 
 }

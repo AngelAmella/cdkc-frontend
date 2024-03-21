@@ -6,8 +6,9 @@ const userNameRules = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 const emailRule = /^[\w-.]+@(gmail|yahoo|outlook)\.(com)$/;
 const alphaOnlyRule = /^[A-Za-z\s,]+$/; //allows spacing & COMMA
 const numberAndDecimalRule = /^[0-9]+(\.[0-9]+)?$/;
-const bloodRule = /^\d{2,3}\/\d{2,3}$/;
-const temperatureRule = /^\d+(\.\d+)?$/;
+
+const bloodRule = /^\d{2,3}\/\d{2,3}$/; //FORMAT BLOOD PRESSURE
+const temperatureRule = /^\d+(\.\d+)?$/; //E.G 27.5
 
 
 
@@ -78,8 +79,8 @@ export const reportSchema = yup.object().shape({
 
 export const suppliesSchema = yup.object().shape({
 
-  itemName: yup.string().max(30, "Maximum characters reached.").min(10, "Product name must be at least 10 minimum.").matches(alphaOnlyRule, "Product Name must only contain letters.").required('Product Name required.'),
-  itemDescription: yup.string().max(40, "Maximum characters reached.").min(10, "Description must be at least 10 minimum.").matches(alphaOnlyRule, "Product Description must only contain letters.").required('Product Description required.'),
+  itemName: yup.string().max(30, "Maximum characters reached.").min(5, "Product name must be at least 5 minimum.").matches(alphaOnlyRule, "Product Name must only contain letters.").required('Product Name required.'),
+  itemDescription: yup.string().max(40, "Maximum characters reached.").min(5, "Description must be at least 5 minimum.").matches(alphaOnlyRule, "Product Description must only contain letters.").required('Product Description required.'),
   stocksAvailable: yup.string().max(5, "Maximum digits reached.").min(2, "Must be atleast two digits.").matches(numberRules, "Availability must only contain numbers.").required("Stock availability required."),
   itemPrice:yup.string().max(5,"Maximum digits reached.").min(2, "Must be at least two digits.").matches(numberAndDecimalRule, "e.g 12.45 of input").required('Item Price required'),
   expireDate: yup.string()
