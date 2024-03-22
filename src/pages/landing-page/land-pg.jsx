@@ -66,6 +66,7 @@ export default function Landing() {
 
 .catch((userError) => {
   toast('Wrong User Credentials')
+  toast('User Login Error', userError)
   console.error('User Login Error: ', userError);
 })
 

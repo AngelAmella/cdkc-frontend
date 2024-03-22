@@ -221,6 +221,7 @@ label.checkbox {
 @media screen and (width: 1366px){
     #login-inputfield{
         width: 260px;
+        margin-left: 2px;
     }
     #password-inputfield{
         width: 260px;

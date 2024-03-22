@@ -4,6 +4,7 @@ import Button from '../../patientrecord-page/components/button';
 import { useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { histoSchema } from '../../../../components/schema/schemaindex';
+import Head2 from '../../../../components/headers/header';
 
 export default function MedicalRecordForm() {
   // const [allergies, setAllergies] = useState('');
@@ -71,6 +72,7 @@ export default function MedicalRecordForm() {
   return (
     <>
       <form className="create-medicalrecord" autoComplete='off' onSubmit={handleSubmit}>
+       <Head2 text="Add Medical Record" id="medicalrecordheader"/> 
         <div className="medical-validation-input">
         <label htmlFor='patientObjectId'></label>
         <input

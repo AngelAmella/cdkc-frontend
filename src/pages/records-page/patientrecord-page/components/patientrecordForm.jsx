@@ -1,49 +1,12 @@
 import React, { useState , useEffect} from 'react';
 import axios from 'axios';
 import '../patientrecord.css';
-// import Button from './button';
 import { useFormik } from 'formik';
 import { recordSchema } from '../../../../components/schema/schemaindex';
+import Head2 from '../../../../components/headers/header';
 
 export default function PatientRecordForm() {
-  // const [patientName, setPatientName] = useState('');
-  // const [weight, setWeight] = useState('');
-  // const [height, setHeight] = useState('');
-  // const [age, setAge] = useState('');
-  // const [sex, setSex] = useState('');
-  // const [selectedUser, setSelectedUser] = useState('');
-
-  // const [PatientRecord, setPatientRecord] = useState([
-  //   { PatientRecord: '' },
-  // ]);
-
-  // const handlePatientRecordAdd = () => {
-  //   setPatientRecord([...PatientRecord, { PatientRecord: '' }]);
-  // };
-  //   const onSubmit = (e) => {
-  //     e.preventDefault();
-  
-  //     axios
-  //       .post('http://localhost:5000/api/records', {
-  //         patientName,
-  //         weight,
-  //         height,
-  //         age,
-  //         sex,
-  //       })
-  //       .then((result) => {
-  //         console.log(result);
-  
-  //         // Clear the form fields after successful submission
-  //         setPatientName('');
-  //         setWeight('');
-  //         setHeight('');
-  //         setAge('');
-  //         setSex('');
-  //       })
-  //       .catch((err) => console.log(err));
-  //   };
-
+ 
   const [users, setUsers] = useState([]);
 
   useEffect (() => {
@@ -92,6 +55,7 @@ const handleSexChange = (e) =>{
   return ( 
     <>
       <form className="create-patientrecord"  autoComplete='off' onSubmit={handleSubmit}>
+        <Head2 text="Add Patient Record" id="patientrecordheader"/>
       <div className="validations-record">
       <label htmlFor='select-user-record'></label>
         <select

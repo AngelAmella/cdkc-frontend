@@ -342,16 +342,17 @@ input {
   #FirstName, #MiddleName, #LastName, #birthday, #contactNum,
   #houseNum, #street, #brgy, #city, #prov,
   #email, #UserName, #password, #confirmpassword{
-    font-size: 12px;
-    height: 30px;
-    width: 200px;
+    font-size: 15px;
+    height: 40px;
+    /* padding: 20px; */
+    width: 600px;
     display: flex;
     /* border-radius: 0; */
   }
   #sex{
-    width: 200px;
-    height: 30px;
-    font-size: 12px;
+    width: 600px;
+    height: 40px;
+    font-size: 15px;
     margin-right: 2px;
     display: flex;
     /* justify-content: center; */

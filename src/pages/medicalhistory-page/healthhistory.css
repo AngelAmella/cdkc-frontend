@@ -60,8 +60,8 @@ thead {
   margin-left: 100px;
 }
 .modal-table {
-  width: 94%;
-  /* margin-left: 120px; */
+  width: 80%;
+  margin-left: 120px;
 }
 @media screen and (max-width: 1366px){
   .view-details{

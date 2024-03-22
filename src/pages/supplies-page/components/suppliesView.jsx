@@ -123,47 +123,58 @@ export default function SuppliesView() {
     setEditedDate(formatDate(item.expireDate));
   };
 
-  const handleSaveClick = () => {
+ const handleSaveClick = () => {
+    // Check if the expiration date is valid
+    const expirationDate = new Date(editedDate);
+    const currentDate = new Date(); // Current date
+    
+    // Check if expiration date is in the past
+    if (expirationDate < currentDate) {
+      // Show alert message for invalid expiration date
+      alert("Invalid expiration date. The date has already passed.");
+      return;
+    }
+
+    const twoWeeksFromNow = new Date();
+    twoWeeksFromNow.setDate(twoWeeksFromNow.getDate() + 14);
+
+    if (expirationDate <= twoWeeksFromNow) {
+      // Show alert message for invalid expiration date
+      alert("Invalid expiration date. The item will expire within two weeks.");
+      return;
+    }
+
     const confirmSave = window.confirm("Do you want to save your changes?");
     if (confirmSave) {
-      const formData = new FormData();
-  
-      // Append edited item data to the form data
-      formData.append('itemName', editedItem.itemName);
-      formData.append('itemDescription', editedItem.itemDescription);
-      formData.append('stocksAvailable', editedItem.stocksAvailable);
-      formData.append('itemPrice', editedItem.itemPrice);
-      formData.append('expireDate', editedDate);
-  
-      // Append new image file if available
-      if (editedItem.newImage) {
-        formData.append('itemImg', editedItem.newImage);
-      }
-  
-      axios
-        .put(`http://localhost:5000/api/inventory/${editedItem._id}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then((result) => {
-          setEditedItem(null);
-  
-          setData((prevData) => {
-            const updatedData = prevData.map((item) =>
-              item._id === editedItem._id ? editedItem : item
-            );
-            return updatedData;
-          });
-  
-          alert("Changes saved successfully");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      saveChanges();
     }
   };
 
+  const saveChanges = () => {
+    const editedItemWithFormattedDate = {
+      ...editedItem,
+      expireDate: editedDate,
+    };
+  
+    axios
+      .put(`http://localhost:5000/api/inventory/${editedItem._id}`, editedItemWithFormattedDate)
+      .then((result) => {
+        setEditedItem(null);
+  
+        setData((prevData) => {
+          const updatedData = prevData.map((item) =>
+            item._id === editedItem._id ? editedItemWithFormattedDate : item
+          );
+          return updatedData;
+        });
+  
+        alert("Changes saved successfully");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  
   const handleCancelClick = () => {
     setEditedItem(null);
   };
@@ -182,13 +193,13 @@ export default function SuppliesView() {
     }
   };  
 
-  const handleEditChange = (e, item) => {
+const handleEditChange = (e, item) => {
     const { name, value } = e.target;
   
     // Perform validation to allow only letters
     if (name === "itemName") {
-      const onlyLetters = /^[a-zA-Z\s]*$/;
-      if (!value.match(onlyLetters)) {
+      const onlyLettersAndHyphen = /^[a-zA-Z\s-]*$/;
+      if (!value.match(onlyLettersAndHyphen)) {
         // Display an alert message for invalid input
         alert(`Invalid input for Item Name.`);
         return; // Prevent updating state with invalid input
@@ -199,12 +210,12 @@ export default function SuppliesView() {
         alert("Item Name cannot exceed 30 characters.");
         return; // Prevent updating state with invalid input
       }
-    }
+    }    
 
     // Perform validation to allow only letters and "/" for itemDescription
     if (name === "itemDescription") {
-      const onlyLettersAndSlash = /^[a-zA-Z/]*$/;
-      if (!value.match(onlyLettersAndSlash)) {
+      const onlyLettersSpaceAndSlash = /^[a-zA-Z\s/]*$/;
+      if (!value.match(onlyLettersSpaceAndSlash)) {
         // Display an alert message for invalid input
         alert(`Invalid input for Description.`);
         return; // Prevent updating state with invalid input
@@ -215,14 +226,14 @@ export default function SuppliesView() {
         alert("Description cannot exceed 30 characters.");
         return; // Prevent updating state with invalid input
       }
-    }
+    }    
 
       // Perform validation for stocksAvailable field to allow only numbers and limit length to 5
       if (name === "stocksAvailable") {
         const onlyNumbers = /^\d*$/;
         if (!value.match(onlyNumbers) && value !== "") {
           // Display an alert message for invalid input
-          alert(`Invalid input for Availability. Only numbers are allowed.`);
+          alert(`Invalid input for Availability.`); //Only numbers are allowed.
           return; // Prevent updating state with invalid input
         }
 
@@ -238,7 +249,7 @@ export default function SuppliesView() {
         const onlyNumbersAndDecimal = /^\d*\.?\d*$/;
         if (!value.match(onlyNumbersAndDecimal) && value !== "") {
           // Display an alert message for invalid input
-          alert(`Invalid input for Item Price. Only numbers and the decimal point "." are allowed.`);
+          alert(`Invalid input for Item Price. `); //Only numbers and the decimal point "." are allowed.
           return; // Prevent updating state with invalid input
         }
 
@@ -252,29 +263,23 @@ export default function SuppliesView() {
       if (name === "expireDate") {
         // Ensure that the input does not exceed 10 characters (MM/DD/YYYY format)
         if (value.length > 10) {
-            return;
+          return;
         }
         // Only allow numbers and '/'
         if (!/^\d{0,2}\/?\d{0,2}\/?\d{0,4}$/.test(value)) {
+          alert('Invalid date format');
+          return; // Exit the function if the input is invalid
+        } else {
+          // Split the date components
+          const [month, day, year] = value.split('/');
+          // Check if month is within range (1-12) and day is within range (1-31)
+          if (parseInt(month) > 12 || parseInt(day) > 31) {
             alert('Invalid date format');
             return; // Exit the function if the input is invalid
-        } else {
-            // Split the date components
-            const [month, day, year] = value.split('/');
-            // Check if month is within range (1-12) and day is within range (1-31)
-            if (parseInt(month) > 12 || parseInt(day) > 31) {
-                alert('Invalid date format');
-                return; // Exit the function if the input is invalid
-            }
-            // Check if the year is 2023 or earlier
-            if (parseInt(year) <= 2023) {
-                alert('Invalid year');
-                return; // Exit the function if the year is invalid
-            }
+          }
         }
         setEditedDate(value);
-    }
-    
+      }
   
     setEditedItem({
       ...editedItem,
@@ -387,7 +392,7 @@ export default function SuppliesView() {
                     )}
                   </td>
                   <td>
-                  {editedItem && editedItem._id === item._id ? (
+                  {/* {editedItem && editedItem._id === item._id ? (
                     <div className="file-input-container">
                       <input
                         id='img-upload-view'
@@ -397,13 +402,12 @@ export default function SuppliesView() {
                         className="supplies-change supplies-change-input"
                       />
                     </div>
-                  ) : (
+                  ) : ( */}
                     <img
                       src={`http://localhost:5000/${editedItem && editedItem.newImage ? URL.createObjectURL(editedItem.newImage) : item.itemImg}`}
                       alt={item.itemName}
                       style={{ maxWidth: "100px", maxHeight: "100px" }}
                     />
-                  )}
                   </td>
                   <td>
                     {editedItem && editedItem._id === item._id ? (

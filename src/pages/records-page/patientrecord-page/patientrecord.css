@@ -371,7 +371,7 @@ thead {
     height: 30px;
     font-size: 12px;
     width: 70px;
-    margin-top: 10px;
+    margin-top: 0.5px;
   }
 
   #searchbar-record{
@@ -483,6 +483,10 @@ thead {
   font-size: 12px;
   height: 30px;
   width: 300px;
+  color: red;
+}
+.histo-error-input{
+  border: 1px solid red;
 }
 .validations-error{
   margin: 0;
@@ -492,6 +496,7 @@ thead {
 .rec-errors-p{
   font-size: 10px;
   margin: 0;
+  bottom: 0;
   color: red;
 }
 
@@ -505,7 +510,7 @@ thead {
   width: 70px;
   font-size: 12px;
   height: 30px;
-  margin-top:10px;
+  margin-top:5px;
 }
 
 .med-errors-p{
@@ -516,6 +521,11 @@ thead {
 .actionButtons-record{
   display:flex;
   gap:2.5px;
+}
+#patientrecordheader,   #medicalrecordheader{
+  font-weight: normal;
+  font-size: 15px;
+  margin: 0;
 }
 
 }
